@@ -1,7 +1,6 @@
 /**
  * StatCard Component
- * Displays a statistic with label
- * Matches glass material from reference image
+ * Displays a statistic with label - uses glass-stat for reflections
  * 
  * @param {string} label - Statistic label
  * @param {string} value - Statistic value
@@ -13,24 +12,18 @@ const StatCard = ({
   className = '',
 }) => {
   return (
-    <div className={`
-      relative overflow-hidden
-      flex justify-between items-center p-4 
-      bg-white/5 backdrop-filter backdrop-blur-lg
-      border border-white/10 rounded-xl
-      before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none
-      ${className}
-    `}>
-      <span className="relative z-10 text-gray-400">{label}</span>
-      <span className="relative z-10 text-white font-medium">{value}</span>
+    <div className={`glass-stat p-3 ${className}`}>
+      <div className="relative z-10 flex justify-between items-center">
+        <span className="text-gray-300">{label}</span>
+        <span className="text-white font-medium">{value}</span>
+      </div>
     </div>
   );
 };
 
 /**
  * QuickStat Component  
- * Compact stat display for overview cards
- * Matches reference image stat boxes (144 Projects, 604 Likes, etc.)
+ * Compact stat display for overview cards - uses glass-stat for reflections
  * 
  * @param {string} value - Main value/number
  * @param {string} label - Description label
@@ -40,19 +33,11 @@ const StatCard = ({
  */
 const QuickStat = ({ value, label, centered = false, gradient = false, className = '' }) => {
   return (
-    <div className={`
-      relative overflow-hidden
-      p-5 
-      bg-gradient-to-br from-blue-500/10 to-purple-500/10
-      backdrop-filter backdrop-blur-lg
-      border border-blue-400/20 rounded-2xl
-      before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/[0.12] before:via-white/[0.04] before:to-transparent before:pointer-events-none
-      hover:border-blue-400/30 transition-all duration-300
-      ${centered ? 'text-center' : ''} 
-      ${className}
-    `}>
-      <p className={`relative z-10 text-3xl font-bold mb-1 ${gradient ? 'gradient-text' : 'text-white'}`}>{value}</p>
-      <p className="relative z-10 text-gray-400 text-sm font-medium">{label}</p>
+    <div className={`glass-stat p-4 ${className}`}>
+      <div className={`relative z-10 ${centered ? 'text-center' : ''}`}>
+        <p className={`text-2xl font-bold ${gradient ? 'gradient-text' : 'text-white'}`}>{value}</p>
+        <p className="text-gray-300 text-sm">{label}</p>
+      </div>
     </div>
   );
 };

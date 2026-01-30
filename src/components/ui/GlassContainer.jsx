@@ -1,6 +1,9 @@
 /**
  * GlassContainer Component
- * Base frosted glass card wrapper with blur, border, shadow, and radius
+ * Base frosted glass card wrapper with blur, border, shadow, and reflections
+ * 
+ * Reflections are applied via CSS pseudo-elements in index.css
+ * Content is wrapped in relative z-10 to appear above reflections
  * 
  * @param {React.ReactNode} children - Content inside the container
  * @param {string} className - Additional CSS classes
@@ -36,6 +39,7 @@ const GlassContainer = ({
       className={`${baseClass} ${glowClass} ${hoverClass} ${paddingClass} ${className}`}
       {...props}
     >
+      {/* Content wrapper - z-10 ensures content appears above reflection pseudo-elements */}
       <div className="relative z-10">
         {children}
       </div>

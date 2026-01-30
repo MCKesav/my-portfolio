@@ -51,10 +51,7 @@ const Navbar = () => {
       <div className="hidden md:flex items-center">
         <div 
           className={`
-            flex items-center gap-1 px-2 py-2 rounded-2xl
-            bg-slate-900/70 backdrop-blur-xl
-            border border-white/10
-            shadow-[0_8px_32px_rgba(0,0,0,0.4)]
+            glass-nav flex items-center gap-1 px-2 py-2
             transition-all duration-500
             ${isScrolled ? 'shadow-[0_8px_32px_rgba(0,0,0,0.6)]' : ''}
           `}
@@ -108,10 +105,7 @@ const Navbar = () => {
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={`
-            p-3 rounded-2xl
-            bg-slate-900/80 backdrop-blur-xl
-            border border-white/10
-            shadow-[0_8px_32px_rgba(0,0,0,0.4)]
+            glass-nav p-3
             text-white transition-all duration-300
             ${isMobileMenuOpen ? 'rotate-90' : ''}
           `}
@@ -131,14 +125,7 @@ const Navbar = () => {
             }
           `}
         >
-          <div 
-            className="
-              p-2 rounded-2xl
-              bg-slate-900/90 backdrop-blur-xl
-              border border-white/10
-              shadow-[0_8px_32px_rgba(0,0,0,0.5)]
-            "
-          >
+          <div className="glass-nav p-2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
