@@ -9,7 +9,7 @@ import ExperiencePage from './pages/ExperiencePage';
 import SkillsPage from './pages/SkillsPage';
 import ResumePage from './pages/ResumePage';
 import ContactPage from './pages/ContactPage';
-import { LiquidGlassFilter } from './components/ui';
+import { LiquidGlassFilter, CursorGlow } from './components/ui';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -53,6 +53,13 @@ function App() {
     <Router>
       {/* SVG Filters for Liquid Glass Effect - Include once at app level */}
       <LiquidGlassFilter />
+      
+      {/* Cursor Glow Effect - Follows mouse */}
+      <CursorGlow 
+        size={500} 
+        color="rgba(139, 92, 246, 0.08)" 
+        blur={100}
+      />
       
       <div className="min-h-screen">
         {/* Loading Screen */}

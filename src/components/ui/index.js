@@ -14,6 +14,11 @@ export {
 // SVG Filter for true liquid distortion effect
 export { default as LiquidGlassFilter } from './LiquidGlassFilter';
 
+// New Visual Effects
+export { default as ParticleBackground } from './ParticleBackground';
+export { default as CursorGlow } from './CursorGlow';
+export { GradientText, ShimmerText, SplitText } from './AnimatedText';
+
 // Legacy Glass Components (use Liquid Glass variants when possible)
 export { default as GlassContainer } from './GlassContainer';
 export { default as SectionWrapper } from './SectionWrapper';

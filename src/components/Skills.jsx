@@ -8,11 +8,12 @@ import {
   SkillChip,
   QuickStat
 } from './ui';
+import { ScrollReveal } from '../hooks/useScrollAnimation';
 
 /**
  * Skills Component
  * Displays technical skills with visual progress indicators
- * Uses reusable UI components for consistency
+ * Enhanced with scroll animations and staggered reveals
  */
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -87,54 +88,70 @@ const Skills = () => {
 
   return (
     <SectionWrapper id="skills" backgroundImage="bg1" overlayOpacity="medium" theme="cyan">
-      <SectionHeader 
-        title="Technical" 
-        highlight="Skills"
-        subtitle="Technologies and tools I work with to bring ideas to life"
-      />
+      <ScrollReveal animation="fade-up">
+        <SectionHeader 
+          title="Technical" 
+          highlight="Skills"
+          subtitle="Technologies and tools I work with to bring ideas to life"
+        />
+      </ScrollReveal>
 
       {/* Category filters */}
-      <div className="flex flex-wrap justify-center gap-3 mb-12">
-        {skillCategories.map((category) => (
-          <FilterButton
-            key={category.id}
-            label={category.name}
-            active={activeCategory === category.id}
-            onClick={() => setActiveCategory(category.id)}
-          />
-        ))}
-      </div>
+      <ScrollReveal animation="fade-up" delay={200}>
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {skillCategories.map((category) => (
+            <FilterButton
+              key={category.id}
+              label={category.name}
+              active={activeCategory === category.id}
+              onClick={() => setActiveCategory(category.id)}
+              className="hover:scale-105 transition-transform"
+            />
+          ))}
+        </div>
+      </ScrollReveal>
 
-      {/* Skills grid */}
+      {/* Skills grid with staggered animation */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredSkills.map((skill, index) => (
-          <SkillBar
-            key={index}
-            name={skill.name}
-            level={skill.level}
-            category={skill.category}
-            color={skill.color}
-            animationDelay={index * 50}
-          />
+          <ScrollReveal key={`${skill.name}-${activeCategory}`} animation="fade-up" delay={100 + index * 50}>
+            <SkillBar
+              name={skill.name}
+              level={skill.level}
+              category={skill.category}
+              color={skill.color}
+              animationDelay={index * 50}
+              className="hover:scale-[1.02] transition-transform duration-300"
+            />
+          </ScrollReveal>
         ))}
       </div>
 
       {/* Additional skills section */}
-      <GlassContainer padding="lg" className="mt-16">
-        <h3 className="text-xl font-bold text-white mb-6 text-center">
-          Other Skills & Interests
-        </h3>
-        <div className="flex flex-wrap justify-center gap-3">
-          {otherSkills.map((skill, index) => (
-            <SkillChip key={index} label={skill} variant="default" />
-          ))}
-        </div>
-      </GlassContainer>
+      <ScrollReveal animation="fade-up" delay={400}>
+        <GlassContainer padding="lg" className="mt-16">
+          <h3 className="text-xl font-bold text-white mb-6 text-center">
+            Other Skills & Interests
+          </h3>
+          <div className="flex flex-wrap justify-center gap-3">
+            {otherSkills.map((skill, index) => (
+              <SkillChip 
+                key={index} 
+                label={skill} 
+                variant="default"
+                className="hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+              />
+            ))}
+          </div>
+        </GlassContainer>
+      </ScrollReveal>
 
       {/* Stats section */}
       <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
-          <QuickStat key={index} value={stat.value} label={stat.label} centered gradient />
+          <ScrollReveal key={index} animation="scale" delay={500 + index * 100}>
+            <QuickStat value={stat.value} label={stat.label} centered gradient />
+          </ScrollReveal>
         ))}
       </div>
     </SectionWrapper>

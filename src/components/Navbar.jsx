@@ -47,14 +47,24 @@ const Navbar = () => {
         isScrolled ? 'top-2' : 'top-4'
       }`}
     >
-      {/* Desktop Navigation - Modern Glass Pill */}
+      {/* Desktop Navigation - Premium Glass Pill */}
       <div className="hidden md:flex items-center">
         <div 
           className={`
-            glass-nav flex items-center gap-1 px-2 py-2
+            flex items-center gap-1 px-2 py-2
             transition-all duration-500
-            ${isScrolled ? 'shadow-[0_8px_32px_rgba(0,0,0,0.6)]' : ''}
+            rounded-2xl
+            ${isScrolled 
+              ? 'bg-slate-900/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_60px_rgba(139,92,246,0.1)]' 
+              : 'bg-white/5 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.3)]'
+            }
+            border border-white/10
           `}
+          style={{
+            background: isScrolled 
+              ? 'linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(30,27,75,0.85) 100%)'
+              : 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
+          }}
         >
           {navLinks.map((link) => (
             <Link
