@@ -16,15 +16,20 @@
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   
+  /* ===== ADAPTIVE REFLECTION COLORS ===== */
+  /* These can be overridden by theme classes */
+  --reflection-color: 255, 255, 255;  /* White base for reflections */
+  --reflection-accent: 59, 130, 246;   /* Blue accent for tinted reflections */
+  
   /* ===== GLASS REFLECTION SYSTEM ===== */
-  /* Primary curved reflection - diagonal light band */
+  /* Primary curved reflection - diagonal light band (adapts to theme) */
   --glass-reflection-primary: linear-gradient(
     135deg,
     transparent 0%,
     transparent 35%,
-    rgba(255, 255, 255, 0.08) 40%,
-    rgba(255, 255, 255, 0.15) 45%,
-    rgba(255, 255, 255, 0.08) 50%,
+    rgba(var(--reflection-color), 0.06) 40%,
+    rgba(var(--reflection-color), 0.12) 45%,
+    rgba(var(--reflection-color), 0.06) 50%,
     transparent 55%,
     transparent 100%
   );
@@ -32,16 +37,24 @@
   /* Top edge highlight - bright line at top */
   --glass-reflection-edge: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 255, 255, 0.05) 3%,
+    rgba(var(--reflection-color), 0.18) 0%,
+    rgba(var(--reflection-color), 0.04) 3%,
     transparent 8%
   );
   
-  /* Subtle corner glow - top left accent */
+  /* Subtle corner glow - top left accent with theme color */
   --glass-reflection-corner: radial-gradient(
     ellipse 80% 50% at 10% 10%,
-    rgba(255, 255, 255, 0.12) 0%,
+    rgba(var(--reflection-accent), 0.15) 0%,
+    rgba(var(--reflection-color), 0.08) 25%,
     transparent 50%
+  );
+  
+  /* Accent reflection - colored tint from background */
+  --glass-reflection-tint: linear-gradient(
+    145deg,
+    rgba(var(--reflection-accent), 0.08) 0%,
+    transparent 40%
   );
   
   /* Border Radius */
@@ -70,6 +83,47 @@
   --transition-fast: 150ms ease;
   --transition-base: 300ms ease;
   --transition-slow: 500ms ease;
+}
+
+/* =====================================================
+   Adaptive Theme Color Overrides
+   Apply these classes to sections/containers to change reflection tint
+   ===================================================== */
+/* Blue Theme (Default) */
+.theme-blue {
+  --reflection-accent: 59, 130, 246;
+}
+
+/* Purple Theme */
+.theme-purple {
+  --reflection-accent: 139, 92, 246;
+}
+
+/* Cyan Theme */
+.theme-cyan {
+  --reflection-accent: 6, 182, 212;
+}
+
+/* Green Theme */
+.theme-green {
+  --reflection-accent: 34, 197, 94;
+}
+
+/* Pink Theme */
+.theme-pink {
+  --reflection-accent: 236, 72, 153;
+}
+
+/* Orange/Warm Theme */
+.theme-warm {
+  --reflection-accent: 249, 115, 22;
+  --reflection-color: 255, 247, 237;
+}
+
+/* Cool/Dark Theme */
+.theme-cool {
+  --reflection-accent: 99, 102, 241;
+  --reflection-color: 224, 231, 255;
 }
 
 /* Base styles */
@@ -113,7 +167,7 @@ body {
    Glass Component Styles
    ===================================================== */
 @layer components {
-  /* Base Glass Card with Reflections */
+  /* Base Glass Card with Adaptive Reflections */
   .glass-card {
     position: relative;
     background: var(--glass-bg);
@@ -125,18 +179,20 @@ body {
     overflow: hidden;
   }
   
-  /* Glass Reflection Layer - Diagonal Light Band */
+  /* Glass Reflection Layer - Diagonal Light Band + Tint */
   .glass-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--glass-reflection-primary);
+    background: 
+      var(--glass-reflection-primary),
+      var(--glass-reflection-tint);
     pointer-events: none;
     z-index: 1;
     border-radius: inherit;
   }
   
-  /* Glass Reflection Layer - Top Edge Highlight */
+  /* Glass Reflection Layer - Top Edge + Corner Accent */
   .glass-card::after {
     content: '';
     position: absolute;
@@ -149,7 +205,7 @@ body {
     border-radius: inherit;
   }
 
-  /* Dark Glass Card Variant with Reflections */
+  /* Dark Glass Card Variant with Adaptive Reflections */
   .glass-card-dark {
     position: relative;
     background: var(--glass-bg-dark);

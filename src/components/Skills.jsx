@@ -86,7 +86,7 @@ const Skills = () => {
     : skills.filter(skill => skill.category === activeCategory);
 
   return (
-    <SectionWrapper id="skills" backgroundImage="bg1" overlayOpacity="medium">
+    <SectionWrapper id="skills" backgroundImage="bg1" overlayOpacity="medium" theme="cyan">
       <SectionHeader 
         title="Technical" 
         highlight="Skills"

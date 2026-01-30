@@ -41,7 +41,7 @@ const ResumeDownload = () => {
   ];
 
   return (
-    <SectionWrapper id="resume" fullHeight={false}>
+    <SectionWrapper id="resume" fullHeight={false} theme="cool">
       <div className="max-w-4xl mx-auto">
         <SectionHeader 
           title="Download My"

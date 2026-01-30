@@ -1,11 +1,13 @@
 /**
  * SectionWrapper Component
  * Handles background images, overlay, padding, and layout spacing for sections
+ * Automatically applies theme class for adaptive glass reflections
  * 
  * @param {React.ReactNode} children - Section content
  * @param {string} id - Section ID for navigation
  * @param {string} backgroundImage - Background image path (bg1, bg2, bg3)
  * @param {string} overlayOpacity - Overlay opacity level (light, medium, dark)
+ * @param {string} theme - Reflection theme (blue, purple, cyan, green, pink, warm, cool)
  * @param {string} className - Additional CSS classes
  * @param {boolean} fullHeight - Minimum full viewport height
  * @param {boolean} centered - Center content vertically
@@ -15,6 +17,7 @@ const SectionWrapper = ({
   id,
   backgroundImage = 'bg1',
   overlayOpacity = 'medium',
+  theme = 'blue',
   className = '',
   fullHeight = true,
   centered = false,
@@ -27,6 +30,9 @@ const SectionWrapper = ({
     dark: 'from-slate-900/80 via-slate-900/70 to-slate-900/80',
   };
 
+  // Theme class for adaptive reflections
+  const themeClass = theme ? `theme-${theme}` : 'theme-blue';
+
   return (
     <section 
       id={id}
@@ -34,6 +40,7 @@ const SectionWrapper = ({
         relative py-20 px-4
         ${fullHeight ? 'min-h-screen' : ''}
         ${centered ? 'flex items-center justify-center' : ''}
+        ${themeClass}
         ${className}
       `}
       style={{

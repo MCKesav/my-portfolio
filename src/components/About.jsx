@@ -50,7 +50,7 @@ const About = () => {
   ];
 
   return (
-    <SectionWrapper id="about" backgroundImage="bg1" overlayOpacity="medium">
+    <SectionWrapper id="about" backgroundImage="bg1" overlayOpacity="medium" theme="purple">
       <SectionHeader title="About" highlight="Me" />
 
       <div className="grid lg:grid-cols-2 gap-12 items-center">

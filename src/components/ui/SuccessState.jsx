@@ -20,6 +20,7 @@ const SuccessState = ({
       id="contact" 
       backgroundImage="bg1" 
       overlayOpacity="medium"
+      theme="green"
       centered
     >
       <div className="max-w-2xl mx-auto w-full">

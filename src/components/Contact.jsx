@@ -89,7 +89,7 @@ const Contact = () => {
   }
 
   return (
-    <SectionWrapper id="contact">
+    <SectionWrapper id="contact" theme="purple">
       <SectionHeader 
         title="Get In"
         highlight="Touch"

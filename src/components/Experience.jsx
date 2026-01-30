@@ -79,7 +79,7 @@ const Experience = () => {
   ];
 
   return (
-    <SectionWrapper id="experience" backgroundImage="bg1" overlayOpacity="medium">
+    <SectionWrapper id="experience" backgroundImage="bg1" overlayOpacity="medium" theme="blue">
       <SectionHeader 
         title="& Projects" 
         highlight="Experience" 

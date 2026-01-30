@@ -39,6 +39,7 @@ const Dashboard = () => {
       id="home" 
       backgroundImage="bg1" 
       overlayOpacity="light"
+      theme="blue"
       centered
       className="flex items-center justify-center"
     >
