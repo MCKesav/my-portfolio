@@ -27,36 +27,36 @@ const Skills = () => {
 
   const skills = [
     // Programming Languages
-    { name: 'Python', level: 90, category: 'languages', color: 'from-blue-400 to-blue-600' },
-    { name: 'JavaScript', level: 85, category: 'languages', color: 'from-yellow-400 to-yellow-600' },
-    { name: 'Java', level: 80, category: 'languages', color: 'from-red-400 to-red-600' },
-    { name: 'TypeScript', level: 75, category: 'languages', color: 'from-blue-500 to-blue-700' },
-    { name: 'SQL', level: 80, category: 'languages', color: 'from-cyan-400 to-cyan-600' },
-    { name: 'C++', level: 70, category: 'languages', color: 'from-purple-400 to-purple-600' },
+    { name: 'Python', level: 90, category: 'languages', color: 'blue' },
+    { name: 'JavaScript', level: 85, category: 'languages', color: 'yellow' },
+    { name: 'Java', level: 80, category: 'languages', color: 'purple' },
+    { name: 'TypeScript', level: 75, category: 'languages', color: 'blue' },
+    { name: 'SQL', level: 80, category: 'languages', color: 'cyan' },
+    { name: 'C++', level: 70, category: 'languages', color: 'purple' },
 
     // Frameworks & Libraries
-    { name: 'React', level: 85, category: 'frameworks', color: 'from-cyan-400 to-cyan-600' },
-    { name: 'Node.js', level: 80, category: 'frameworks', color: 'from-green-400 to-green-600' },
-    { name: 'FastAPI', level: 75, category: 'frameworks', color: 'from-teal-400 to-teal-600' },
-    { name: 'Django', level: 70, category: 'frameworks', color: 'from-green-500 to-green-700' },
-    { name: 'TailwindCSS', level: 85, category: 'frameworks', color: 'from-cyan-400 to-blue-500' },
-    { name: 'Express.js', level: 75, category: 'frameworks', color: 'from-gray-400 to-gray-600' },
+    { name: 'React', level: 85, category: 'frameworks', color: 'cyan' },
+    { name: 'Node.js', level: 80, category: 'frameworks', color: 'green' },
+    { name: 'FastAPI', level: 75, category: 'frameworks', color: 'cyan' },
+    { name: 'Django', level: 70, category: 'frameworks', color: 'green' },
+    { name: 'TailwindCSS', level: 85, category: 'frameworks', color: 'blue' },
+    { name: 'Express.js', level: 75, category: 'frameworks', color: 'purple' },
 
     // Tools & Platforms
-    { name: 'Git & GitHub', level: 90, category: 'tools', color: 'from-orange-400 to-red-500' },
-    { name: 'Docker', level: 75, category: 'tools', color: 'from-blue-400 to-blue-600' },
-    { name: 'AWS', level: 70, category: 'tools', color: 'from-orange-400 to-orange-600' },
-    { name: 'Linux', level: 80, category: 'tools', color: 'from-yellow-500 to-yellow-700' },
-    { name: 'VS Code', level: 90, category: 'tools', color: 'from-blue-500 to-blue-700' },
-    { name: 'MongoDB', level: 75, category: 'tools', color: 'from-green-400 to-green-600' },
+    { name: 'Git & GitHub', level: 90, category: 'tools', color: 'red' },
+    { name: 'Docker', level: 75, category: 'tools', color: 'blue' },
+    { name: 'AWS', level: 70, category: 'tools', color: 'orange' },
+    { name: 'Linux', level: 80, category: 'tools', color: 'yellow' },
+    { name: 'VS Code', level: 90, category: 'tools', color: 'blue' },
+    { name: 'MongoDB', level: 75, category: 'tools', color: 'green' },
 
     // AI & ML
-    { name: 'Machine Learning', level: 85, category: 'ai', color: 'from-purple-400 to-pink-500' },
-    { name: 'Deep Learning', level: 75, category: 'ai', color: 'from-indigo-400 to-purple-500' },
-    { name: 'NLP', level: 80, category: 'ai', color: 'from-pink-400 to-rose-500' },
-    { name: 'TensorFlow', level: 70, category: 'ai', color: 'from-orange-400 to-orange-600' },
-    { name: 'PyTorch', level: 70, category: 'ai', color: 'from-red-400 to-orange-500' },
-    { name: 'OpenAI API', level: 80, category: 'ai', color: 'from-green-400 to-teal-500' },
+    { name: 'Machine Learning', level: 85, category: 'ai', color: 'purple' },
+    { name: 'Deep Learning', level: 75, category: 'ai', color: 'pink' },
+    { name: 'NLP', level: 80, category: 'ai', color: 'pink' },
+    { name: 'TensorFlow', level: 70, category: 'ai', color: 'orange' },
+    { name: 'PyTorch', level: 70, category: 'ai', color: 'red' },
+    { name: 'OpenAI API', level: 80, category: 'ai', color: 'green' },
   ];
 
   const otherSkills = [

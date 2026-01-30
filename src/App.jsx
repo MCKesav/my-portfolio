@@ -9,6 +9,7 @@ import ExperiencePage from './pages/ExperiencePage';
 import SkillsPage from './pages/SkillsPage';
 import ResumePage from './pages/ResumePage';
 import ContactPage from './pages/ContactPage';
+import { LiquidGlassFilter } from './components/ui';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -50,6 +51,9 @@ function App() {
 
   return (
     <Router>
+      {/* SVG Filters for Liquid Glass Effect - Include once at app level */}
+      <LiquidGlassFilter />
+      
       <div className="min-h-screen">
         {/* Loading Screen */}
         {isLoading && <Loading onComplete={handleLoadingComplete} />}

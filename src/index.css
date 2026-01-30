@@ -3,65 +3,175 @@
 @tailwind utilities;
 
 /* =====================================================
-   CSS Variables - Glassmorphism Design System
+   APPLE LIQUID GLASS DESIGN SYSTEM
+   Inspired by VisionOS & iOS 17+ Materials
+   
+   Design Principles:
+   - Glass is contextual, not everywhere
+   - Different elevation = different blur & opacity
+   - Motion reinforces depth
+   - Light refraction > flat transparency
+   - Background remains sharp
    ===================================================== */
+
 :root {
-  /* Glass Effect Variables */
-  --glass-blur: 20px;
-  --glass-blur-light: 10px;
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-dark: rgba(15, 23, 42, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-border-dark: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* =====================================================
+     GLOBAL BACKGROUND - Single Source of Truth
+     Change this once to update all pages
+     ===================================================== */
+  --app-background-image: url('/ui images/bg1.png');
+  --app-background-color: #0f172a;
+  --app-background-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
   
-  /* ===== ADAPTIVE REFLECTION COLORS ===== */
-  /* These can be overridden by theme classes */
-  --reflection-color: 255, 255, 255;  /* White base for reflections */
-  --reflection-accent: 59, 130, 246;   /* Blue accent for tinted reflections */
+  /* Overlay Gradients */
+  --overlay-light: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.4));
+  --overlay-medium: linear-gradient(to bottom, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.6));
+  --overlay-dark: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8));
+
+  /* =====================================================
+     ELEVATION TOKENS
+     Higher elevation = more blur, less opacity, deeper shadow
+     ===================================================== */
   
-  /* ===== GLASS REFLECTION SYSTEM ===== */
-  /* Primary curved reflection - diagonal light band (adapts to theme) */
-  --glass-reflection-primary: linear-gradient(
-    135deg,
-    transparent 0%,
-    transparent 35%,
-    rgba(var(--reflection-color), 0.06) 40%,
-    rgba(var(--reflection-color), 0.12) 45%,
-    rgba(var(--reflection-color), 0.06) 50%,
-    transparent 55%,
-    transparent 100%
-  );
+  /* Level 0: Surface (no glass - base layer) */
+  --elevation-0-blur: 0px;
+  --elevation-0-bg: transparent;
+  --elevation-0-border: transparent;
+  --elevation-0-shadow: none;
   
-  /* Top edge highlight - bright line at top */
-  --glass-reflection-edge: linear-gradient(
+  /* Level 1: Low (subtle tags, pills, chips) */
+  --elevation-1-blur: 12px;
+  --elevation-1-saturation: 120%;
+  --elevation-1-bg: rgba(255, 255, 255, 0.06);
+  --elevation-1-bg-hover: rgba(255, 255, 255, 0.10);
+  --elevation-1-border: rgba(255, 255, 255, 0.10);
+  --elevation-1-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --elevation-1-radius: 10px;
+  
+  /* Level 2: Medium (cards, panels) */
+  --elevation-2-blur: 24px;
+  --elevation-2-saturation: 140%;
+  --elevation-2-bg: rgba(255, 255, 255, 0.12);
+  --elevation-2-bg-hover: rgba(255, 255, 255, 0.18);
+  --elevation-2-border: rgba(255, 255, 255, 0.15);
+  --elevation-2-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+  --elevation-2-radius: 18px;
+  
+  /* Level 3: High (navbar, hero panels, modals) */
+  --elevation-3-blur: 32px;
+  --elevation-3-saturation: 160%;
+  --elevation-3-bg: rgba(255, 255, 255, 0.16);
+  --elevation-3-bg-hover: rgba(255, 255, 255, 0.22);
+  --elevation-3-border: rgba(255, 255, 255, 0.20);
+  --elevation-3-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.16),
+    0 4px 12px rgba(0, 0, 0, 0.10);
+  --elevation-3-radius: 22px;
+  
+  /* Level 4: Highest (forms, floating elements, popovers) */
+  --elevation-4-blur: 40px;
+  --elevation-4-saturation: 180%;
+  --elevation-4-bg: rgba(255, 255, 255, 0.18);
+  --elevation-4-bg-hover: rgba(255, 255, 255, 0.24);
+  --elevation-4-border: rgba(255, 255, 255, 0.25);
+  --elevation-4-shadow: 
+    0 24px 48px rgba(0, 0, 0, 0.20),
+    0 8px 16px rgba(0, 0, 0, 0.12);
+  --elevation-4-radius: 26px;
+  
+  /* =====================================================
+     LIGHT REFRACTION SYSTEM
+     Simulates how real glass bends and diffuses light
+     ===================================================== */
+  
+  /* Primary highlight - top curved specular */
+  --refraction-highlight: linear-gradient(
     180deg,
-    rgba(var(--reflection-color), 0.18) 0%,
-    rgba(var(--reflection-color), 0.04) 3%,
-    transparent 8%
+    rgba(255, 255, 255, 0.40) 0%,
+    rgba(255, 255, 255, 0.15) 8%,
+    rgba(255, 255, 255, 0.05) 20%,
+    transparent 45%
   );
   
-  /* Subtle corner glow - top left accent with theme color */
-  --glass-reflection-corner: radial-gradient(
-    ellipse 80% 50% at 10% 10%,
-    rgba(var(--reflection-accent), 0.15) 0%,
-    rgba(var(--reflection-color), 0.08) 25%,
-    transparent 50%
-  );
-  
-  /* Accent reflection - colored tint from background */
-  --glass-reflection-tint: linear-gradient(
-    145deg,
-    rgba(var(--reflection-accent), 0.08) 0%,
+  /* Secondary highlight - diagonal light sweep */
+  --refraction-sweep: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 15%,
     transparent 40%
   );
+  
+  /* Edge specular - crisp top edge glow */
+  --refraction-edge: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.60) 0%,
+    rgba(255, 255, 255, 0.30) 1px,
+    rgba(255, 255, 255, 0.10) 2px,
+    transparent 6px
+  );
+  
+  /* Ambient glow - soft inner luminosity */
+  --refraction-ambient: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.20),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.05);
+  
+  /* =====================================================
+     MOTION TOKENS (Apple-like timing)
+     ===================================================== */
+  --motion-swift: 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-smooth: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-gentle: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-spring: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* =====================================================
+     COLOR TOKENS
+     ===================================================== */
+  --accent-blue: 59, 130, 246;
+  --accent-purple: 139, 92, 246;
+  --accent-pink: 236, 72, 153;
+  --accent-cyan: 34, 211, 238;
+  --accent-emerald: 52, 211, 153;
+  
+  /* Adaptive accent (overridden by theme) */
+  --accent-current: var(--accent-blue);
+  
+  /* Glow colors */
+  --glow-intensity: 0.25;
+  --glow-spread: 32px;
+  
+  /* =====================================================
+     DEPRECATED - keeping for backwards compatibility
+     Will be removed in future versions
+     ===================================================== */
+  --glass-blur: var(--elevation-2-blur);
+  --glass-blur-light: var(--elevation-1-blur);
+  --glass-blur-heavy: var(--elevation-3-blur);
+  --glass-bg: var(--elevation-2-bg);
+  --glass-bg-hover: var(--elevation-2-bg-hover);
+  --glass-bg-dark: rgba(15, 23, 42, 0.65);
+  --glass-border: var(--elevation-2-border);
+  --glass-border-light: var(--elevation-3-border);
+  --glass-border-dark: var(--elevation-1-border);
+  --glass-shadow: var(--elevation-2-shadow);
+  --glass-shadow-elevated: var(--elevation-3-shadow);
+  --glass-inset: var(--refraction-ambient);
+  --glass-inner-glow: var(--refraction-ambient);
+  --reflection-color: 255, 255, 255;
+  --reflection-accent: var(--accent-current);
+  --glass-reflection-arc: var(--refraction-highlight);
+  --glass-reflection-vertical: var(--refraction-highlight);
+  --glass-reflection-diagonal: var(--refraction-sweep);
+  --glass-reflection-edge: var(--refraction-edge);
+  --glass-reflection-bottom: linear-gradient(0deg, rgba(0,0,0,0.03) 0%, transparent 25%);
   
   /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px;
+  --radius-2xl: 24px;
   --radius-full: 9999px;
   
   /* Colors - Primary */
@@ -86,47 +196,47 @@
 }
 
 /* =====================================================
-   Adaptive Theme Color Overrides
-   Apply these classes to sections/containers to change reflection tint
+   THEME VARIANTS
+   Each theme adjusts accent colors for contextual glass
    ===================================================== */
-/* Blue Theme (Default) */
 .theme-blue {
-  --reflection-accent: 59, 130, 246;
+  --accent-current: var(--accent-blue);
+  --reflection-accent: var(--accent-blue);
 }
 
-/* Purple Theme */
 .theme-purple {
-  --reflection-accent: 139, 92, 246;
+  --accent-current: var(--accent-purple);
+  --reflection-accent: var(--accent-purple);
 }
 
-/* Cyan Theme */
 .theme-cyan {
-  --reflection-accent: 6, 182, 212;
+  --accent-current: var(--accent-cyan);
+  --reflection-accent: var(--accent-cyan);
 }
 
-/* Green Theme */
-.theme-green {
-  --reflection-accent: 34, 197, 94;
+.theme-emerald, .theme-green {
+  --accent-current: var(--accent-emerald);
+  --reflection-accent: var(--accent-emerald);
 }
 
-/* Pink Theme */
 .theme-pink {
-  --reflection-accent: 236, 72, 153;
+  --accent-current: var(--accent-pink);
+  --reflection-accent: var(--accent-pink);
 }
 
-/* Orange/Warm Theme */
 .theme-warm {
-  --reflection-accent: 249, 115, 22;
-  --reflection-color: 255, 247, 237;
+  --accent-current: 251, 146, 60;
+  --reflection-accent: 251, 146, 60;
 }
 
-/* Cool/Dark Theme */
 .theme-cool {
-  --reflection-accent: 99, 102, 241;
-  --reflection-color: 224, 231, 255;
+  --accent-current: 129, 140, 248;
+  --reflection-accent: 129, 140, 248;
 }
 
-/* Base styles */
+/* =====================================================
+   BASE STYLES
+   ===================================================== */
 * {
   margin: 0;
   padding: 0;
@@ -138,82 +248,415 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--app-background-gradient);
+  background-color: var(--app-background-color);
   min-height: 100vh;
   color: #fff;
   overflow-x: hidden;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.5);
-  border-radius: var(--radius-sm);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.7);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* =====================================================
-   Glass Component Styles
+   GLOBAL BACKGROUND LAYER
+   Apply to any section for consistent background
+   ===================================================== */
+.app-background {
+  background-image: var(--app-background-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: var(--app-background-color);
+}
+
+.app-background-gradient {
+  background: var(--app-background-gradient);
+}
+
+/* Scrollbar styling - minimal like Apple */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* =====================================================
+   APPLE LIQUID GLASS SVG FILTER EFFECTS
+   True liquid distortion using SVG filters
+   ===================================================== */
+
+/* Apply liquid glass SVG filter effect */
+.liquid-glass-effect {
+  filter: url(#liquid-glass-filter);
+}
+
+.liquid-glass-effect-subtle {
+  filter: url(#liquid-glass-subtle);
+}
+
+.liquid-glass-effect-glow {
+  filter: url(#liquid-glass-glow);
+}
+
+.liquid-glass-effect-chromatic {
+  filter: url(#liquid-glass-chromatic);
+}
+
+.liquid-glass-effect-premium {
+  filter: url(#liquid-glass-premium);
+}
+
+/* Combined effect with backdrop blur */
+.liquid-glass-full {
+  position: relative;
+  backdrop-filter: blur(var(--elevation-3-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--elevation-3-blur)) saturate(180%);
+  filter: url(#liquid-glass-subtle);
+}
+
+/* Rainbow edge glow - like macOS Sequoia */
+.liquid-glass-rainbow {
+  position: relative;
+}
+
+.liquid-glass-rainbow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(255, 0, 128, 0.3) 0deg,
+    rgba(255, 128, 0, 0.3) 60deg,
+    rgba(255, 255, 0, 0.3) 120deg,
+    rgba(0, 255, 128, 0.3) 180deg,
+    rgba(0, 128, 255, 0.3) 240deg,
+    rgba(128, 0, 255, 0.3) 300deg,
+    rgba(255, 0, 128, 0.3) 360deg
+  );
+  border-radius: inherit;
+  filter: blur(8px);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--motion-smooth);
+}
+
+.liquid-glass-rainbow:hover::before {
+  opacity: 1;
+}
+
+/* =====================================================
+   LIQUID GLASS COMPONENT SYSTEM
+   Elevation-based materials inspired by VisionOS
    ===================================================== */
 @layer components {
-  /* Base Glass Card with Adaptive Reflections */
-  .glass-card {
+  
+  /* =====================================================
+     LIQUID GLASS BASE PRIMITIVE
+     Core building block for all glass components
+     Usage: Apply elevation modifier classes
+     ===================================================== */
+  .liquid-glass {
     position: relative;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--glass-shadow), var(--glass-inset);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.05)
+    );
+    backdrop-filter: blur(var(--elevation-2-blur)) saturate(var(--elevation-2-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-2-blur)) saturate(var(--elevation-2-saturation));
+    border: 1px solid var(--elevation-2-border);
+    border-radius: var(--elevation-2-radius);
+    box-shadow: 
+      var(--elevation-2-shadow),
+      var(--refraction-ambient);
+    transition: 
+      transform var(--motion-smooth),
+      box-shadow var(--motion-smooth),
+      background var(--motion-smooth);
     overflow: hidden;
   }
   
-  /* Glass Reflection Layer - Diagonal Light Band + Tint */
-  .glass-card::before {
+  /* Light refraction overlay - gives liquid feel */
+  .liquid-glass::before {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-      var(--glass-reflection-primary),
-      var(--glass-reflection-tint);
+      var(--refraction-highlight),
+      var(--refraction-sweep);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+    transition: opacity var(--motion-smooth);
+  }
+  
+  /* Top edge specular highlight */
+  .liquid-glass::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--refraction-edge);
+    pointer-events: none;
+    z-index: 2;
+    border-radius: inherit;
+    mix-blend-mode: overlay;
+  }
+  
+  /* Hover state - subtle lift */
+  .liquid-glass:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      var(--elevation-3-shadow),
+      var(--refraction-ambient);
+  }
+  
+  .liquid-glass:hover::before {
+    opacity: 1;
+  }
+  
+  /* =====================================================
+     ELEVATION MODIFIERS
+     Apply these classes to adjust glass intensity
+     ===================================================== */
+  
+  /* Level 1: Low - Tags, pills, subtle elements */
+  .liquid-glass--low {
+    backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.03)
+    );
+    border-color: var(--elevation-1-border);
+    border-radius: var(--elevation-1-radius);
+    box-shadow: var(--elevation-1-shadow);
+  }
+  
+  .liquid-glass--low::before {
+    opacity: 0.4;
+  }
+  
+  .liquid-glass--low:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--elevation-2-shadow);
+  }
+  
+  /* Level 3: High - Navbar, hero, modals */
+  .liquid-glass--high {
+    backdrop-filter: blur(var(--elevation-3-blur)) saturate(var(--elevation-3-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-3-blur)) saturate(var(--elevation-3-saturation));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.08)
+    );
+    border-color: var(--elevation-3-border);
+    border-radius: var(--elevation-3-radius);
+    box-shadow: 
+      var(--elevation-3-shadow),
+      var(--refraction-ambient);
+  }
+  
+  .liquid-glass--high:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      var(--elevation-4-shadow),
+      var(--refraction-ambient);
+  }
+  
+  /* Level 4: Highest - Forms, floating panels */
+  .liquid-glass--highest {
+    backdrop-filter: blur(var(--elevation-4-blur)) saturate(var(--elevation-4-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-4-blur)) saturate(var(--elevation-4-saturation));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.20),
+      rgba(255, 255, 255, 0.10)
+    );
+    border-color: var(--elevation-4-border);
+    border-radius: var(--elevation-4-radius);
+    box-shadow: 
+      var(--elevation-4-shadow),
+      var(--refraction-ambient);
+  }
+  
+  .liquid-glass--highest:hover {
+    transform: translateY(-6px);
+  }
+  
+  /* =====================================================
+     GLASS VARIANT: DARK
+     Darker base for better contrast on light backgrounds
+     ===================================================== */
+  .liquid-glass--dark {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.75),
+      rgba(15, 23, 42, 0.60)
+    );
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  
+  .liquid-glass--dark::before {
+    opacity: 0.5;
+  }
+  
+  /* =====================================================
+     GLASS VARIANT: ACCENT
+     Subtle tint matching current theme
+     ===================================================== */
+  .liquid-glass--accent {
+    background: linear-gradient(
+      135deg,
+      rgba(var(--accent-current), 0.15),
+      rgba(var(--accent-current), 0.05)
+    );
+    border-color: rgba(var(--accent-current), 0.25);
+  }
+  
+  .liquid-glass--accent:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(var(--accent-current), 0.20),
+      rgba(var(--accent-current), 0.08)
+    );
+    box-shadow: 
+      var(--elevation-3-shadow),
+      0 0 var(--glow-spread) rgba(var(--accent-current), var(--glow-intensity));
+  }
+  
+  /* =====================================================
+     GLASS NAVBAR
+     Floating navigation with high elevation
+     ===================================================== */
+  .glass-nav,
+  .liquid-glass-nav {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.80),
+      rgba(15, 23, 42, 0.65)
+    );
+    backdrop-filter: blur(var(--elevation-3-blur)) saturate(var(--elevation-3-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-3-blur)) saturate(var(--elevation-3-saturation));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--elevation-3-radius);
+    box-shadow: 
+      var(--elevation-3-shadow),
+      var(--refraction-ambient);
+    transition: 
+      transform var(--motion-smooth),
+      box-shadow var(--motion-smooth);
+    overflow: hidden;
+  }
+  
+  .glass-nav::before,
+  .liquid-glass-nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      var(--refraction-highlight),
+      var(--refraction-edge);
+    opacity: 0.6;
     pointer-events: none;
     z-index: 1;
     border-radius: inherit;
   }
   
-  /* Glass Reflection Layer - Top Edge + Corner Accent */
-  .glass-card::after {
+  /* =====================================================
+     GLASS CARD (Legacy + New)
+     Medium elevation panel
+     ===================================================== */
+  .glass-card {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.04)
+    );
+    backdrop-filter: blur(var(--elevation-2-blur)) saturate(var(--elevation-2-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-2-blur)) saturate(var(--elevation-2-saturation));
+    border: 1px solid var(--elevation-2-border);
+    border-radius: var(--elevation-2-radius);
+    box-shadow: 
+      var(--elevation-2-shadow),
+      var(--refraction-ambient);
+    transition: 
+      transform var(--motion-smooth),
+      box-shadow var(--motion-smooth),
+      background var(--motion-smooth);
+    overflow: hidden;
+  }
+  
+  .glass-card::before {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-      var(--glass-reflection-edge),
-      var(--glass-reflection-corner);
+      var(--refraction-highlight),
+      var(--refraction-sweep);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+    transition: opacity var(--motion-smooth);
+  }
+  
+  .glass-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--refraction-edge);
     pointer-events: none;
     z-index: 2;
     border-radius: inherit;
+    mix-blend-mode: overlay;
+  }
+  
+  .glass-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+      var(--elevation-3-shadow),
+      var(--refraction-ambient);
+  }
+  
+  .glass-card:hover::before {
+    opacity: 0.9;
   }
 
-  /* Dark Glass Card Variant with Adaptive Reflections */
+  /* ===== DARK GLASS CARD ===== */
   .glass-card-dark {
     position: relative;
-    background: var(--glass-bg-dark);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border-dark);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.75),
+      rgba(15, 23, 42, 0.55)
+    );
+    backdrop-filter: blur(var(--elevation-2-blur)) saturate(var(--elevation-2-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-2-blur)) saturate(var(--elevation-2-saturation));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--elevation-2-radius);
+    box-shadow: 
+      var(--elevation-3-shadow),
+      var(--refraction-ambient);
+    transition: 
+      transform var(--motion-smooth),
+      box-shadow var(--motion-smooth);
     overflow: hidden;
   }
   
@@ -221,8 +664,10 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--glass-reflection-primary);
-    opacity: 0.6;
+    background: 
+      var(--refraction-highlight),
+      var(--refraction-sweep);
+    opacity: 0.4;
     pointer-events: none;
     z-index: 1;
     border-radius: inherit;
@@ -232,22 +677,79 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--glass-reflection-edge);
+    background: var(--refraction-edge);
     opacity: 0.5;
     pointer-events: none;
     z-index: 2;
     border-radius: inherit;
   }
 
-  /* Glass Button with Reflections */
+  /* =====================================================
+     GLASS PILL / TAG
+     Low elevation for chips and tags
+     ===================================================== */
+  .glass-pill,
+  .liquid-glass-pill {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.10),
+      rgba(255, 255, 255, 0.04)
+    );
+    backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    border: 1px solid var(--elevation-1-border);
+    border-radius: var(--radius-full);
+    box-shadow: var(--elevation-1-shadow);
+    transition: 
+      transform var(--motion-swift),
+      background var(--motion-swift);
+    overflow: hidden;
+  }
+  
+  .glass-pill::before,
+  .liquid-glass-pill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--refraction-edge);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  
+  .glass-pill:hover,
+  .liquid-glass-pill:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.06)
+    );
+  }
+  
+  /* =====================================================
+     GLASS BUTTON
+     Interactive element with accent glow
+     ===================================================== */
   .glass-button {
     position: relative;
-    background: rgba(59, 130, 246, 0.3);
-    backdrop-filter: blur(var(--glass-blur-light));
-    -webkit-backdrop-filter: blur(var(--glass-blur-light));
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-base);
+    background: linear-gradient(
+      135deg,
+      rgba(var(--accent-current), 0.20),
+      rgba(var(--accent-current), 0.08)
+    );
+    backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    border: 1px solid rgba(var(--accent-current), 0.30);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--refraction-ambient);
+    transition: 
+      transform var(--motion-swift),
+      box-shadow var(--motion-swift),
+      background var(--motion-swift),
+      border-color var(--motion-swift);
     overflow: hidden;
   }
   
@@ -255,74 +757,91 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      transparent 50%
-    );
+    background: 
+      var(--refraction-highlight),
+      var(--refraction-edge);
+    opacity: 0.6;
     pointer-events: none;
     z-index: 1;
     border-radius: inherit;
+    transition: opacity var(--motion-swift);
   }
-
+  
   .glass-button:hover {
-    background: rgba(59, 130, 246, 0.5);
-    border-color: rgba(59, 130, 246, 0.6);
-    box-shadow: 0 0 30px var(--glow-blue);
     transform: translateY(-2px);
+    background: linear-gradient(
+      135deg,
+      rgba(var(--accent-current), 0.30),
+      rgba(var(--accent-current), 0.15)
+    );
+    border-color: rgba(var(--accent-current), 0.50);
+    box-shadow: 
+      0 0 var(--glow-spread) rgba(var(--accent-current), var(--glow-intensity)),
+      var(--refraction-ambient);
+  }
+  
+  .glass-button:hover::before {
+    opacity: 0.8;
+  }
+  
+  .glass-button:active {
+    transform: translateY(0);
   }
 
-  /* Glass Input with Reflections */
+  /* =====================================================
+     GLASS INPUT
+     Form element with focus glow
+     ===================================================== */
   .glass-input {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(var(--glass-blur-light));
-    -webkit-backdrop-filter: blur(var(--glass-blur-light));
-    border: 1px solid var(--glass-border-dark);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    );
+    backdrop-filter: blur(var(--elevation-1-blur));
+    -webkit-backdrop-filter: blur(var(--elevation-1-blur));
+    border: 1px solid var(--elevation-1-border);
     border-radius: var(--radius-md);
-    transition: all var(--transition-base);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: 
+      box-shadow var(--motion-swift),
+      border-color var(--motion-swift),
+      background var(--motion-swift);
   }
-
+  
   .glass-input:focus {
-    background: var(--glass-bg);
-    border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.10),
+      rgba(255, 255, 255, 0.04)
+    );
+    border-color: rgba(var(--accent-current), 0.50);
+    box-shadow: 
+      0 0 0 3px rgba(var(--accent-current), 0.15),
+      inset 0 1px 2px rgba(0, 0, 0, 0.05);
     outline: none;
   }
   
-  /* Glass Navigation Bar */
-  .glass-nav {
-    position: relative;
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border-dark);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-  }
-  
-  .glass-nav::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.08) 0%,
-      transparent 30%
-    );
-    pointer-events: none;
-    z-index: 1;
-    border-radius: inherit;
-  }
-  
-  /* Glass Stat Card - for stats/metrics display */
+  /* =====================================================
+     GLASS STAT CARD
+     Metric display with accent tint
+     ===================================================== */
   .glass-stat {
     position: relative;
-    background: rgba(59, 130, 246, 0.15);
-    backdrop-filter: blur(var(--glass-blur-light));
-    -webkit-backdrop-filter: blur(var(--glass-blur-light));
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    border-radius: var(--radius-lg);
+    background: linear-gradient(
+      135deg,
+      rgba(var(--accent-current), 0.15),
+      rgba(var(--accent-current), 0.05)
+    );
+    backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    -webkit-backdrop-filter: blur(var(--elevation-1-blur)) saturate(var(--elevation-1-saturation));
+    border: 1px solid rgba(var(--accent-current), 0.20);
+    border-radius: var(--elevation-2-radius);
+    box-shadow: var(--refraction-ambient);
+    transition: 
+      transform var(--motion-swift),
+      box-shadow var(--motion-swift);
     overflow: hidden;
   }
   
@@ -330,7 +849,10 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--glass-reflection-primary);
+    background: 
+      var(--refraction-highlight),
+      var(--refraction-sweep);
+    opacity: 0.5;
     pointer-events: none;
     z-index: 1;
     border-radius: inherit;
@@ -340,16 +862,17 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.12) 0%,
-      transparent 40%
-    );
+    background: var(--refraction-edge);
+    opacity: 0.4;
     pointer-events: none;
     z-index: 2;
     border-radius: inherit;
   }
 
+  /* =====================================================
+     UTILITY CLASSES
+     ===================================================== */
+  
   /* Gradient Text */
   .gradient-text {
     background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
@@ -361,9 +884,9 @@ body {
   /* Glow Effect */
   .glow-effect {
     box-shadow: 
-      0 0 20px var(--glow-blue),
-      0 0 40px var(--glow-purple),
-      0 0 60px rgba(59, 130, 246, 0.1);
+      0 0 24px var(--glow-blue),
+      0 0 48px var(--glow-purple),
+      var(--refraction-ambient);
   }
 
   /* Section Background */
@@ -384,10 +907,22 @@ body {
     opacity: 0.3;
     z-index: -1;
   }
+  
+  /* Content wrapper - ensures content above glass reflections */
+  .glass-content {
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* No hover animation variant */
+  .liquid-glass--static:hover,
+  .glass-card--static:hover {
+    transform: none;
+  }
 }
 
 /* =====================================================
-   Animation Utilities
+   ANIMATION UTILITIES
    ===================================================== */
 @layer utilities {
   .animate-delay-100 {
@@ -408,15 +943,133 @@ body {
 }
 
 /* =====================================================
-   Keyframe Animations
+   KEYFRAME ANIMATIONS
+   Apple-like smooth motion
    ===================================================== */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(var(--accent-current), 0.2),
+      var(--refraction-ambient);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(var(--accent-current), 0.35),
+      var(--refraction-ambient);
+  }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* =====================================================
+   RESPONSIVE ADJUSTMENTS
+   Reduce blur on lower-end devices for performance
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Reduce blur intensity on mobile for performance */
+@media (max-width: 768px) {
+  :root {
+    --elevation-1-blur: 8px;
+    --elevation-2-blur: 16px;
+    --elevation-3-blur: 24px;
+    --elevation-4-blur: 28px;
+  }
+}
+
+/* =====================================================
+   PRINT STYLES
+   Remove glass effects for printing
+   ===================================================== */
+@media print {
+  .liquid-glass,
+  .glass-card,
+  .glass-nav,
+  .glass-button {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: white !important;
+    color: black !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
   }
 }

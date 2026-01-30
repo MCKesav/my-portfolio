@@ -1,6 +1,11 @@
 /**
  * FormInput Component
- * Reusable glass input field with default, focus, and error states
+ * Apple-inspired liquid glass input field with smooth focus transitions
+ * 
+ * Uses the liquid glass design system with:
+ * - Subtle background blur
+ * - Focus glow effect matching accent color
+ * - Error state with red tint
  * 
  * @param {string} type - Input type (text, email, etc.)
  * @param {string} name - Input name
@@ -33,17 +38,22 @@ const FormInput = ({
   ...props 
 }) => {
   const inputClasses = `
-    w-full px-4 py-3 glass-input text-white placeholder-gray-500
-    ${error ? 'border-red-500/50 focus:border-red-500' : ''}
+    w-full px-4 py-3.5 glass-input 
+    text-white placeholder-gray-500
+    font-medium
+    ${error ? 'border-red-500/50 focus:border-red-500 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.15)]' : ''}
     ${className}
-  `;
+  `.trim().replace(/\s+/g, ' ');
 
   const InputComponent = textarea ? 'textarea' : 'input';
 
   return (
     <div className="space-y-2">
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-gray-300">
+        <label 
+          htmlFor={name} 
+          className="block text-sm font-medium text-gray-300 mb-1.5"
+        >
           {label}
           {required && <span className="text-red-400 ml-1">*</span>}
         </label>
@@ -65,7 +75,7 @@ const FormInput = ({
       />
       
       {error && (
-        <p className="text-sm text-red-400">{error}</p>
+        <p className="text-sm text-red-400 mt-1.5 animate-fade-in">{error}</p>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 /**
  * SkillChip Component
- * Small pill/badge for displaying skill tags
+ * Apple-inspired low-elevation glass pill for skill tags
+ * Uses the liquid glass design system
  * 
  * @param {string} label - Skill label
  * @param {string} variant - Style variant (default, tech, achievement)
@@ -13,37 +14,73 @@ const SkillChip = ({
   color = 'blue',
   className = '',
 }) => {
-  const variantClasses = {
-    default: 'glass-card text-gray-300 hover:text-white hover:bg-white/15',
-    tech: `bg-${color}-500/20 border border-${color}-500/30 text-${color}-300`,
-    achievement: 'bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 text-blue-300',
+  // Color map for tech variant with proper glass-like appearance
+  const colorMap = {
+    blue: { 
+      bg: 'rgba(59, 130, 246, 0.15)', 
+      border: 'rgba(59, 130, 246, 0.25)', 
+      text: 'rgb(147, 197, 253)',
+      glow: 'rgba(59, 130, 246, 0.1)'
+    },
+    purple: { 
+      bg: 'rgba(139, 92, 246, 0.15)', 
+      border: 'rgba(139, 92, 246, 0.25)', 
+      text: 'rgb(196, 181, 253)',
+      glow: 'rgba(139, 92, 246, 0.1)'
+    },
+    green: { 
+      bg: 'rgba(34, 197, 94, 0.15)', 
+      border: 'rgba(34, 197, 94, 0.25)', 
+      text: 'rgb(134, 239, 172)',
+      glow: 'rgba(34, 197, 94, 0.1)'
+    },
+    red: { 
+      bg: 'rgba(239, 68, 68, 0.15)', 
+      border: 'rgba(239, 68, 68, 0.25)', 
+      text: 'rgb(252, 165, 165)',
+      glow: 'rgba(239, 68, 68, 0.1)'
+    },
+    yellow: { 
+      bg: 'rgba(234, 179, 8, 0.15)', 
+      border: 'rgba(234, 179, 8, 0.25)', 
+      text: 'rgb(253, 224, 71)',
+      glow: 'rgba(234, 179, 8, 0.1)'
+    },
+    cyan: { 
+      bg: 'rgba(6, 182, 212, 0.15)', 
+      border: 'rgba(6, 182, 212, 0.25)', 
+      text: 'rgb(103, 232, 249)',
+      glow: 'rgba(6, 182, 212, 0.1)'
+    },
+    orange: { 
+      bg: 'rgba(249, 115, 22, 0.15)', 
+      border: 'rgba(249, 115, 22, 0.25)', 
+      text: 'rgb(253, 186, 116)',
+      glow: 'rgba(249, 115, 22, 0.1)'
+    },
   };
 
-  // For tech variant, use inline styles for dynamic colors
-  const getTechStyle = () => {
-    const colorMap = {
-      blue: { bg: 'rgba(59, 130, 246, 0.2)', border: 'rgba(59, 130, 246, 0.3)', text: 'rgb(147, 197, 253)' },
-      purple: { bg: 'rgba(139, 92, 246, 0.2)', border: 'rgba(139, 92, 246, 0.3)', text: 'rgb(196, 181, 253)' },
-      green: { bg: 'rgba(34, 197, 94, 0.2)', border: 'rgba(34, 197, 94, 0.3)', text: 'rgb(134, 239, 172)' },
-      red: { bg: 'rgba(239, 68, 68, 0.2)', border: 'rgba(239, 68, 68, 0.3)', text: 'rgb(252, 165, 165)' },
-      yellow: { bg: 'rgba(234, 179, 8, 0.2)', border: 'rgba(234, 179, 8, 0.3)', text: 'rgb(253, 224, 71)' },
-      cyan: { bg: 'rgba(6, 182, 212, 0.2)', border: 'rgba(6, 182, 212, 0.3)', text: 'rgb(103, 232, 249)' },
-      orange: { bg: 'rgba(249, 115, 22, 0.2)', border: 'rgba(249, 115, 22, 0.3)', text: 'rgb(253, 186, 116)' },
-    };
-    return colorMap[color] || colorMap.blue;
-  };
+  const getColorStyle = () => colorMap[color] || colorMap.blue;
 
+  // Tech variant - accent colored pill
   if (variant === 'tech') {
-    const style = getTechStyle();
+    const style = getColorStyle();
     return (
       <span 
-        className={`px-3 py-1 text-xs rounded-full transition-all duration-300 ${className}`}
+        className={`
+          px-3 py-1.5 text-xs font-medium rounded-full
+          backdrop-blur-sm
+          transition-all duration-300
+          hover:-translate-y-0.5
+          ${className}
+        `}
         style={{
-          backgroundColor: style.bg,
+          background: `linear-gradient(135deg, ${style.bg}, transparent)`,
           borderWidth: '1px',
           borderStyle: 'solid',
           borderColor: style.border,
           color: style.text,
+          boxShadow: `inset 0 1px 0 rgba(255,255,255,0.1), 0 2px 8px ${style.glow}`,
         }}
       >
         {label}
@@ -51,12 +88,29 @@ const SkillChip = ({
     );
   }
 
+  // Achievement variant - gradient glass pill
+  if (variant === 'achievement') {
+    return (
+      <span 
+        className={`
+          glass-pill px-4 py-2 text-sm font-medium
+          bg-gradient-to-r from-blue-500/15 to-purple-500/15
+          border border-blue-500/25 text-blue-300
+          hover:from-blue-500/20 hover:to-purple-500/20
+          ${className}
+        `}
+      >
+        {label}
+      </span>
+    );
+  }
+
+  // Default variant - neutral glass pill
   return (
     <span 
       className={`
-        px-4 py-2 text-sm rounded-full
-        transition-all duration-300 cursor-default
-        ${variantClasses[variant]}
+        glass-pill px-4 py-2 text-sm font-medium
+        text-gray-300 hover:text-white
         ${className}
       `}
     >

@@ -4,7 +4,8 @@ import SkillChip from './SkillChip';
 
 /**
  * ProjectCard Component
- * Card for displaying project information
+ * Apple-inspired liquid glass card for displaying project information
+ * Medium elevation with hover lift effect
  * 
  * @param {string} name - Project name
  * @param {string} description - Project description
@@ -20,7 +21,7 @@ const ProjectCard = ({
   return (
     <GlassContainer hover padding="md" className="h-full flex flex-col group">
       <div className="flex items-start justify-between mb-3">
-        <h4 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+        <h4 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors duration-300">
           {name}
         </h4>
         {link && (
@@ -28,14 +29,15 @@ const ProjectCard = ({
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
+            aria-label={`View ${name} project`}
           >
             <ExternalLink className="w-5 h-5" />
           </a>
         )}
       </div>
       
-      <p className="text-gray-400 text-sm mb-4 flex-1">{description}</p>
+      <p className="text-gray-400 text-sm mb-4 flex-1 leading-relaxed">{description}</p>
       
       <div className="flex flex-wrap gap-2">
         {technologies.map((tech, idx) => (

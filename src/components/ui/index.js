@@ -1,6 +1,20 @@
 // UI Components - Central export file
 // Import and re-export all reusable UI components
 
+// Liquid Glass Design System (Apple-inspired)
+export { 
+  default as LiquidGlass,
+  LiquidGlassNav,
+  LiquidGlassPill,
+  LiquidGlassCard,
+  LiquidGlassHero,
+  LiquidGlassForm,
+} from './LiquidGlass';
+
+// SVG Filter for true liquid distortion effect
+export { default as LiquidGlassFilter } from './LiquidGlassFilter';
+
+// Legacy Glass Components (use Liquid Glass variants when possible)
 export { default as GlassContainer } from './GlassContainer';
 export { default as SectionWrapper } from './SectionWrapper';
 export { default as SectionHeader } from './SectionHeader';

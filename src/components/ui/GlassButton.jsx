@@ -2,10 +2,15 @@ import { Link } from 'react-router-dom';
 
 /**
  * GlassButton Component
- * Reusable button with glass effect, hover glow, and focus states
+ * Apple-inspired liquid glass button with refraction and motion
+ * 
+ * Uses the liquid glass design system with:
+ * - Light refraction overlay
+ * - Apple-like timing curves (cubic-bezier 0.22, 1, 0.36, 1)
+ * - Hover lift and glow effects
  * 
  * @param {React.ReactNode} children - Button content
- * @param {string} variant - Button style (primary, secondary, outline)
+ * @param {string} variant - Button style (primary, secondary, outline, ghost)
  * @param {string} size - Button size (sm, md, lg)
  * @param {string} href - External link URL
  * @param {string} to - React Router link path
@@ -34,28 +39,50 @@ const GlassButton = ({
 
   const variantClasses = {
     primary: 'glass-button text-white font-medium',
-    secondary: 'bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-xl hover:opacity-90 transition-opacity',
-    outline: 'border border-white/20 rounded-xl text-white font-medium hover:bg-white/10 transition-all duration-300',
-    ghost: 'text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300',
+    secondary: `
+      bg-gradient-to-r from-blue-500 to-purple-500 
+      text-white font-medium rounded-xl 
+      hover:from-blue-400 hover:to-purple-400
+      hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/25
+      active:translate-y-0 active:shadow-none
+      transition-all duration-300
+    `,
+    outline: `
+      border border-white/20 rounded-xl 
+      text-white font-medium 
+      backdrop-blur-sm
+      hover:bg-white/10 hover:border-white/30
+      hover:-translate-y-0.5
+      active:translate-y-0
+      transition-all duration-300
+    `,
+    ghost: `
+      text-gray-400 rounded-xl 
+      hover:text-white hover:bg-white/8
+      transition-all duration-300
+    `,
   };
 
   const baseClasses = `
     inline-flex items-center justify-center gap-2
     ${sizeClasses[size]}
     ${variantClasses[variant]}
-    ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''}
+    ${disabled || loading ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}
     ${className}
-  `;
+  `.trim().replace(/\s+/g, ' ');
 
-  // Loading spinner
+  // Loading spinner with Apple-like animation
   const LoadingSpinner = () => (
-    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+    <div 
+      className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
+      style={{ animationDuration: '0.8s' }}
+    />
   );
 
   const content = loading ? (
     <>
       <LoadingSpinner />
-      {children}
+      <span className="opacity-80">{children}</span>
     </>
   ) : children;
 
