@@ -36,7 +36,9 @@ const GlassContainer = ({
       className={`${baseClass} ${glowClass} ${hoverClass} ${paddingClass} ${className}`}
       {...props}
     >
-      {children}
+      <div className="relative z-10">
+        {children}
+      </div>
     </div>
   );
 };
