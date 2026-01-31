@@ -40,25 +40,25 @@ const GlassButton = ({
   const variantClasses = {
     primary: 'glass-button text-white font-medium',
     secondary: `
-      bg-gradient-to-r from-blue-500 to-purple-500 
+      bg-gradient-to-r from-amber-500 to-rose-500 
       text-white font-medium rounded-xl 
-      hover:from-blue-400 hover:to-purple-400
-      hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/25
+      hover:from-amber-400 hover:to-rose-400
+      hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-500/25
       active:translate-y-0 active:shadow-none
       transition-all duration-300
     `,
     outline: `
-      border border-white/20 rounded-xl 
+      border border-amber-500/20 rounded-xl 
       text-white font-medium 
       backdrop-blur-sm
-      hover:bg-white/10 hover:border-white/30
+      hover:bg-amber-500/10 hover:border-amber-500/30
       hover:-translate-y-0.5
       active:translate-y-0
       transition-all duration-300
     `,
     ghost: `
       text-gray-400 rounded-xl 
-      hover:text-white hover:bg-white/8
+      hover:text-amber-100 hover:bg-amber-500/8
       transition-all duration-300
     `,
   };

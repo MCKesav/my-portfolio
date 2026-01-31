@@ -21,7 +21,7 @@ const ProjectCard = ({
   return (
     <GlassContainer hover padding="md" className="h-full flex flex-col group">
       <div className="flex items-start justify-between mb-3">
-        <h4 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors duration-300">
+        <h4 className="text-lg font-semibold text-white group-hover:text-amber-400 transition-colors duration-300">
           {name}
         </h4>
         {link && (
@@ -41,7 +41,7 @@ const ProjectCard = ({
       
       <div className="flex flex-wrap gap-2">
         {technologies.map((tech, idx) => (
-          <SkillChip key={idx} label={tech} variant="tech" color="purple" />
+          <SkillChip key={idx} label={tech} variant="tech" color="rose" />
         ))}
       </div>
     </GlassContainer>

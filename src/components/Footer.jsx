@@ -1,6 +1,9 @@
-import { Github, Linkedin, Twitter, Mail, Heart, ArrowUp } from 'lucide-react';
-import { GlassContainer, GlassButton, IconButton, Avatar } from './ui';
+import { Heart, ArrowUp, Download } from 'lucide-react';
+import { GlassButton, IconButton, Avatar, SocialLinks } from './ui';
 import { scrollToTop } from '../utils/scroll';
+import { ScrollReveal } from '../hooks/useScrollAnimation';
+import { GradientText } from './ui/AnimatedText';
+import { NAV_LINKS, PROFILE, RESUME_PATH } from '../data/constants';
 
 /**
  * Footer Component
@@ -8,22 +11,6 @@ import { scrollToTop } from '../utils/scroll';
  */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Resume', href: '#resume' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
-  const socialLinks = [
-    { icon: <Github className="w-5 h-5" />, href: 'https://github.com', label: 'GitHub' },
-    { icon: <Linkedin className="w-5 h-5" />, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: <Twitter className="w-5 h-5" />, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: <Mail className="w-5 h-5" />, href: 'mailto:contact@example.com', label: 'Email' },
-  ];
 
   return (
     <footer className="relative bg-slate-900/95 border-t border-white/10">
@@ -34,97 +21,114 @@ const Footer = () => {
         {/* Main footer content */}
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand section */}
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <Avatar initials="MCK" size="md" />
-              <div>
-                <h3 className="text-xl font-bold text-white">Movva Chenna Kesav</h3>
-                <p className="text-sm text-gray-400">AI Engineer & Software Engineer</p>
+          <ScrollReveal animation="fade-up" delay={100}>
+            <div>
+              <div className="flex items-center gap-3 mb-4 group">
+                <Avatar initials={PROFILE.initials} size="md" className="group-hover:scale-110 transition-transform duration-300" />
+                <div>
+                  <h3 className="text-xl font-bold text-white">
+                    <GradientText>{PROFILE.name}</GradientText>
+                  </h3>
+                  <p className="text-sm text-gray-400">{PROFILE.title}</p>
+                </div>
               </div>
+              <p className="text-gray-400 text-sm mb-6">
+                {PROFILE.bio.slice(0, 150)}...
+              </p>
+              {/* Social links */}
+              <SocialLinks size="md" itemClassName="icon-hover" />
             </div>
-            <p className="text-gray-400 text-sm mb-6">
-              Building intelligent systems and innovative solutions. 
-              Passionate about AI, machine learning, and creating impactful software.
-            </p>
-            {/* Social links */}
-            <div className="flex gap-3">
-              {socialLinks.map((social, index) => (
-                <IconButton
-                  key={index}
-                  icon={social.icon}
-                  href={social.href}
-                  label={social.label}
-                  size="md"
-                />
-              ))}
-            </div>
-          </div>
+          </ScrollReveal>
 
           {/* Quick links */}
-          <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {navLinks.map((link, index) => (
-                <li key={index}>
+          <ScrollReveal animation="fade-up" delay={200}>
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                {NAV_LINKS.map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href={link.path}
+                      className="text-gray-400 hover:text-white hover:translate-x-2 transition-all duration-300 inline-flex items-center gap-2 group"
+                    >
+                      <span className="w-0 h-px bg-amber-400 group-hover:w-3 transition-all duration-300" />
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+                {/* Resume download link */}
+                <li>
                   <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-300 inline-block"
+                    href={RESUME_PATH}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    className="text-amber-400 hover:text-amber-300 hover:translate-x-2 transition-all duration-300 inline-flex items-center gap-2 group"
                   >
-                    {link.name}
+                    <Download className="w-4 h-4" />
+                    Download Resume
                   </a>
                 </li>
-              ))}
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </ScrollReveal>
 
           {/* Contact info */}
-          <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Get In Touch</h4>
-            <div className="space-y-3">
-              <p className="text-gray-400 text-sm">
-                <span className="text-gray-300">Email:</span> contact@movvakesav.com
-              </p>
-              <p className="text-gray-400 text-sm">
-                <span className="text-gray-300">Location:</span> India
-              </p>
-              <p className="text-gray-400 text-sm">
-                <span className="text-gray-300">Status:</span>{' '}
-                <span className="inline-flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  Available for opportunities
-                </span>
-              </p>
-            </div>
+          <ScrollReveal animation="fade-up" delay={300}>
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Get In Touch</h4>
+              <div className="space-y-3">
+                <p className="text-gray-400 text-sm hover:text-white transition-colors duration-300">
+                  <span className="text-gray-300">Email:</span> {PROFILE.email}
+                </p>
+                <p className="text-gray-400 text-sm hover:text-white transition-colors duration-300">
+                  <span className="text-gray-300">Phone:</span> {PROFILE.phone}
+                </p>
+                <p className="text-gray-400 text-sm hover:text-white transition-colors duration-300">
+                  <span className="text-gray-300">Location:</span> {PROFILE.location}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  <span className="text-gray-300">Status:</span>{' '}
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    Available for opportunities
+                  </span>
+                </p>
+              </div>
 
-            {/* CTA */}
-            <GlassButton href="#contact" size="sm" className="mt-6">
-              Let's Connect
-            </GlassButton>
-          </div>
+              {/* CTA */}
+              <GlassButton href="#contact" size="sm" className="mt-6 hover:scale-105 transition-transform duration-300">
+                Let's Connect
+              </GlassButton>
+            </div>
+          </ScrollReveal>
         </div>
 
         {/* Divider */}
-        <div className="border-t border-white/10 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Copyright */}
-            <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} Movva Chenna Kesav. All rights reserved.
-            </p>
+        <ScrollReveal animation="fade-up" delay={400}>
+          <div className="border-t border-white/10 pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              {/* Copyright */}
+              <p className="text-gray-400 text-sm text-center md:text-left">
+                © {currentYear} Movva Chenna Kesav. All rights reserved.
+              </p>
 
-            {/* Made with love */}
-            <p className="text-gray-400 text-sm flex items-center gap-1">
-              Made with <Heart className="w-4 h-4 text-red-400 fill-red-400" /> using React & Tailwind
-            </p>
+              {/* Made with love */}
+              <p className="text-gray-400 text-sm flex items-center gap-1">
+                Made with <Heart className="w-4 h-4 text-red-400 fill-red-400 animate-pulse" /> using React & Tailwind
+              </p>
 
-            {/* Back to top button */}
-            <IconButton
-              icon={<ArrowUp className="w-5 h-5" />}
-              onClick={scrollToTop}
-              label="Back to top"
-              size="md"
-            />
+              {/* Back to top button */}
+              <IconButton
+                icon={<ArrowUp className="w-5 h-5" />}
+                onClick={scrollToTop}
+                label="Back to top"
+                size="md"
+                className="hover:scale-110 hover:-translate-y-2 transition-all duration-300"
+              />
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </footer>
   );

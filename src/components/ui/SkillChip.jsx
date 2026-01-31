@@ -58,9 +58,33 @@ const SkillChip = ({
       text: 'rgb(253, 186, 116)',
       glow: 'rgba(249, 115, 22, 0.1)'
     },
+    gold: { 
+      bg: 'rgba(251, 191, 36, 0.15)', 
+      border: 'rgba(251, 191, 36, 0.3)', 
+      text: 'rgb(253, 224, 71)',
+      glow: 'rgba(251, 191, 36, 0.15)'
+    },
+    rose: { 
+      bg: 'rgba(244, 63, 94, 0.15)', 
+      border: 'rgba(244, 63, 94, 0.25)', 
+      text: 'rgb(251, 113, 133)',
+      glow: 'rgba(244, 63, 94, 0.1)'
+    },
+    amber: { 
+      bg: 'rgba(245, 158, 11, 0.15)', 
+      border: 'rgba(245, 158, 11, 0.3)', 
+      text: 'rgb(252, 211, 77)',
+      glow: 'rgba(245, 158, 11, 0.15)'
+    },
+    teal: { 
+      bg: 'rgba(20, 184, 166, 0.15)', 
+      border: 'rgba(20, 184, 166, 0.25)', 
+      text: 'rgb(94, 234, 212)',
+      glow: 'rgba(20, 184, 166, 0.1)'
+    },
   };
 
-  const getColorStyle = () => colorMap[color] || colorMap.blue;
+  const getColorStyle = () => colorMap[color] || colorMap.gold;
 
   // Tech variant - accent colored pill
   if (variant === 'tech') {
@@ -94,9 +118,9 @@ const SkillChip = ({
       <span 
         className={`
           glass-pill px-4 py-2 text-sm font-medium
-          bg-gradient-to-r from-blue-500/15 to-purple-500/15
-          border border-blue-500/25 text-blue-300
-          hover:from-blue-500/20 hover:to-purple-500/20
+          bg-gradient-to-r from-amber-500/15 to-yellow-400/15
+          border border-amber-500/25 text-amber-300
+          hover:from-amber-500/20 hover:to-yellow-400/20
           ${className}
         `}
       >

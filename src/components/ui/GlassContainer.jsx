@@ -1,6 +1,9 @@
+import LiquidGlass from './LiquidGlass';
+
 /**
  * GlassContainer Component
- * Frosted glass card wrapper with Apple-inspired liquid glass material
+ * Simplified API wrapper around LiquidGlass for common use cases.
+ * For advanced features, use LiquidGlass directly.
  * 
  * Uses elevation-based blur and refraction system:
  * - Low: subtle tags, pills (12px blur)
@@ -10,8 +13,8 @@
  * 
  * @param {React.ReactNode} children - Content inside the container
  * @param {string} className - Additional CSS classes
- * @param {boolean} glow - Enable glow effect
- * @param {boolean} dark - Use darker variant
+ * @param {boolean} glow - Enable glow effect (maps to variant="glow")
+ * @param {boolean} dark - Use darker variant (maps to variant="dark")
  * @param {string} padding - Padding size (none, sm, md, lg, xl)
  * @param {boolean} hover - Enable hover lift effect (default: true)
  * @param {string} elevation - Glass elevation level (low, medium, high, highest)
@@ -30,33 +33,22 @@ const GlassContainer = ({
   rainbowEdge = false,
   ...props 
 }) => {
-  const paddingClasses = {
-    none: '',
-    sm: 'p-4',
-    md: 'p-6',
-    lg: 'p-8',
-    xl: 'p-12',
-  };
-
-  // Use liquid-glass for new elevation system, fall back to glass-card for compatibility
-  const baseClass = dark ? 'glass-card-dark' : 'glass-card';
-  const elevationClass = elevation !== 'medium' ? `liquid-glass liquid-glass--${elevation}` : '';
-  const glowClass = glow ? 'glow-effect' : '';
-  const hoverClass = !hover ? 'glass-card--static' : '';
-  const liquidClass = liquidEffect ? 'liquid-glass-effect-subtle' : '';
-  const rainbowClass = rainbowEdge ? 'liquid-glass-rainbow' : '';
-  const paddingClass = paddingClasses[padding] || paddingClasses.md;
-
+  // Map GlassContainer props to LiquidGlass props
+  const variant = dark ? 'dark' : glow ? 'glow' : 'default';
+  
   return (
-    <div 
-      className={`${elevationClass || baseClass} ${glowClass} ${hoverClass} ${liquidClass} ${rainbowClass} ${paddingClass} ${className}`}
+    <LiquidGlass
+      elevation={elevation}
+      variant={variant}
+      padding={padding}
+      hover={hover}
+      liquidEffect={liquidEffect}
+      rainbowEdge={rainbowEdge}
+      className={className}
       {...props}
     >
-      {/* Content wrapper - z-10 ensures content appears above reflection pseudo-elements */}
-      <div className="glass-content">
-        {children}
-      </div>
-    </div>
+      {children}
+    </LiquidGlass>
   );
 };
 

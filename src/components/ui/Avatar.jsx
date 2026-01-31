@@ -29,7 +29,7 @@ const Avatar = ({
       className={`
         ${sizeClasses[size]}
         ${roundedClass}
-        bg-gradient-to-br from-blue-500 to-purple-500 
+        bg-gradient-to-br from-amber-500 via-yellow-400 to-amber-600 
         flex items-center justify-center flex-shrink-0
         ${className}
       `}

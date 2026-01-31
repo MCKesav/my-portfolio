@@ -26,14 +26,14 @@ const TimelineItem = ({
   return (
     <div className="relative pl-8 md:pl-20 pb-12">
       {/* Timeline dot */}
-      <div className="absolute left-0 md:left-8 top-0 w-4 h-4 -translate-x-1/2 bg-blue-500 rounded-full border-4 border-slate-900 glow-effect" />
+      <div className="absolute left-0 md:left-8 top-0 w-4 h-4 -translate-x-1/2 bg-amber-500 rounded-full border-4 border-slate-900 shadow-[0_0_8px_rgba(251,191,36,0.4)]" />
 
-      <GlassContainer padding="lg">
+      <GlassContainer dark padding="lg" hover={false} className="!rounded-2xl !overflow-hidden !bg-[#0a0a0c]/98 !backdrop-blur-xl">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
           <div>
             <h4 className="text-xl font-bold text-white">{role}</h4>
-            <p className="text-blue-400 font-medium">{company}</p>
+            <p className="text-amber-400 font-medium">{company}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="flex items-center gap-1 text-sm text-gray-400">
@@ -55,7 +55,7 @@ const TimelineItem = ({
           <ul className="space-y-2 mb-4">
             {highlights.map((highlight, idx) => (
               <li key={idx} className="flex items-start gap-2 text-gray-400 text-sm">
-                <span className="w-1.5 h-1.5 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
+                <span className="w-1.5 h-1.5 mt-2 bg-amber-400 rounded-full flex-shrink-0" />
                 {highlight}
               </li>
             ))}
@@ -66,7 +66,7 @@ const TimelineItem = ({
         {technologies.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech, idx) => (
-              <SkillChip key={idx} label={tech} variant="tech" color="blue" />
+              <SkillChip key={idx} label={tech} variant="tech" color="gold" />
             ))}
           </div>
         )}

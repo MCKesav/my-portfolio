@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { NAV_LINKS } from '../data/constants';
 
 /**
  * Modern Glass Navbar Component
@@ -11,13 +12,8 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Experience', path: '/experience' },
-    { name: 'Skills', path: '/skills' },
-    { name: 'Resume', path: '/resume' },
-  ];
+  // Filter out Contact from nav links (it has its own button)
+  const mainNavLinks = NAV_LINKS.filter(link => link.path !== '/contact');
 
   // Handle scroll effects
   useEffect(() => {
@@ -66,7 +62,7 @@ const Navbar = () => {
               : 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
           }}
         >
-          {navLinks.map((link) => (
+          {mainNavLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
@@ -99,8 +95,8 @@ const Navbar = () => {
               relative ml-1 px-6 py-2.5 rounded-xl text-sm font-medium
               transition-all duration-300 ease-out overflow-hidden
               ${isActive('/contact')
-                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25'
-                : 'bg-gradient-to-r from-blue-600/80 to-purple-600/80 text-white hover:from-blue-500 hover:to-purple-500 hover:shadow-lg hover:shadow-blue-500/25'
+                ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-lg shadow-amber-500/25'
+                : 'bg-gradient-to-r from-amber-600/80 to-yellow-600/80 text-white hover:from-amber-500 hover:to-yellow-500 hover:shadow-lg hover:shadow-amber-500/25'
               }
             `}
           >
@@ -136,7 +132,7 @@ const Navbar = () => {
           `}
         >
           <div className="glass-nav p-2">
-            {navLinks.map((link) => (
+            {mainNavLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
@@ -159,10 +155,10 @@ const Navbar = () => {
                 to="/contact"
                 className={`
                   block w-full py-3 text-center rounded-xl text-sm font-medium
-                  bg-gradient-to-r from-blue-600 to-purple-600 text-white
-                  hover:from-blue-500 hover:to-purple-500
+                  bg-gradient-to-r from-amber-600 to-yellow-600 text-white
+                  hover:from-amber-500 hover:to-yellow-500
                   transition-all duration-300
-                  ${isActive('/contact') ? 'shadow-lg shadow-blue-500/25' : ''}
+                  ${isActive('/contact') ? 'shadow-lg shadow-amber-500/25' : ''}
                 `}
               >
                 Contact

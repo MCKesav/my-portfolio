@@ -15,7 +15,7 @@ const FilterButton = ({
   className = '',
 }) => {
   const baseClasses = 'px-6 py-2 rounded-full text-sm font-medium transition-all duration-300';
-  const activeClasses = 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg';
+  const activeClasses = 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-lg';
   const inactiveClasses = 'glass-card text-gray-300 hover:text-white hover:bg-white/15';
 
   return (

@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 export const GradientText = ({ 
   children, 
   className = '',
-  colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#3b82f6'],
+  colors = ['#d4af37', '#f59e0b', '#be3144', '#d4af37'],
   animate = true,
   duration = 3,
 }) => {

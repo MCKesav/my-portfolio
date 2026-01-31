@@ -1,19 +1,22 @@
-import { Github, Linkedin, Mail, Twitter, ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown, Sparkles, Mail, Download } from 'lucide-react';
 import { 
   SectionWrapper,
   GlassContainer, 
-  GlassButton, 
-  IconButton, 
   StatusBadge,
   Avatar,
   StatCard,
-  SkillChip
+  SkillChip,
+  MorphingBlob,
+  TypeWriter,
+  MagneticButton,
+  Spotlight,
+  SocialLinks
 } from './ui';
 import { GradientText } from './ui/AnimatedText';
-import ParticleBackground from './ui/ParticleBackground';
 import { TiltCard } from '../hooks/useTiltEffect';
 import { ScrollReveal } from '../hooks/useScrollAnimation';
 import { scrollToSection } from '../utils/scroll';
+import { PROFILE, EXPERIENCE, ACHIEVEMENTS, RESUME_PATH, TYPEWRITER_ROLES } from '../data/constants';
 
 /**
  * Dashboard/Hero Component
@@ -21,21 +24,8 @@ import { scrollToSection } from '../utils/scroll';
  */
 const Dashboard = () => {
 
-  const socialLinks = [
-    { icon: <Github size={20} />, href: 'https://github.com', label: 'GitHub' },
-    { icon: <Linkedin size={20} />, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: <Twitter size={20} />, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: <Mail size={20} />, href: 'mailto:contact@example.com', label: 'Email' },
-  ];
-
-  const quickStats = [
-    { label: 'Experience', value: 'Software Engineer Intern' },
-    { label: 'Company', value: 'JPMorgan Chase' },
-    { label: 'Projects', value: '4+ Major' },
-    { label: 'Focus', value: 'AI & ML' },
-  ];
-
-  const achievements = ['GitHub Hackathon Winner', 'Amazon ML School'];
+  // Use centralized data from constants
+  const quickStats = EXPERIENCE.quickStats;
 
   return (
     <SectionWrapper 
@@ -46,12 +36,21 @@ const Dashboard = () => {
       centered
       className="flex items-center justify-center overflow-hidden"
     >
-        {/* Particle Background */}
-        <ParticleBackground 
-          particleCount={40}
-          colors={['#3b82f6', '#8b5cf6', '#ec4899', '#22d3ee']}
-          opacity={0.4}
-        />
+        {/* Morphing Blob Background Decorations */}
+        <div className="absolute top-20 -left-32 opacity-25 pointer-events-none">
+          <MorphingBlob 
+            colors={['#d4af37', '#be3144', '#663399']}
+            size={500}
+            speed={5}
+          />
+        </div>
+        <div className="absolute -bottom-20 -right-32 opacity-20 pointer-events-none">
+          <MorphingBlob 
+            colors={['#008080', '#d4af37', '#50c878']}
+            size={600}
+            speed={4}
+          />
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
           
@@ -71,15 +70,23 @@ const Dashboard = () => {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                   Hi, I'm{' '}
                   <GradientText 
-                    colors={['#60a5fa', '#a78bfa', '#f472b6', '#60a5fa']} 
-                    duration={4}
+                    colors={['#d4af37', '#ffbf00', '#fde68a', '#d4af37']} 
+                    duration={5}
                     className="inline-block"
                   >
-                    Movva Chenna Kesav
+                    {PROFILE.name}
                   </GradientText>
                 </h1>
                 <h2 className="text-2xl md:text-3xl text-gray-300 font-light">
-                  <span className="text-blue-400">AI Engineer</span> & <span className="text-purple-400">Software Engineer</span>
+                  <TypeWriter 
+                    words={TYPEWRITER_ROLES}
+                    typingSpeed={80}
+                    deletingSpeed={50}
+                    delayBetweenWords={2500}
+                    cursorChar="|"
+                    className="text-amber-400"
+                    cursorClassName="text-rose-400 ml-1"
+                  />
                 </h2>
               </div>
             </ScrollReveal>
@@ -87,22 +94,36 @@ const Dashboard = () => {
             {/* Description */}
             <ScrollReveal animation="fade-up" delay={300}>
               <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                Passionate about building intelligent systems and creating innovative solutions. 
-                Experienced in developing AI-powered applications and scalable software systems 
-                that make a real impact.
+                {PROFILE.bio}
               </p>
             </ScrollReveal>
 
             {/* CTA Buttons */}
             <ScrollReveal animation="fade-up" delay={400}>
               <div className="flex flex-wrap gap-4 pt-4">
-                <GlassButton onClick={() => scrollToSection('contact')} className="group">
-                  <Mail size={18} className="group-hover:rotate-12 transition-transform" />
+                <MagneticButton 
+                  onClick={() => scrollToSection('contact')} 
+                  variant="primary"
+                  size="lg"
+                >
+                  <Mail size={18} />
                   Get In Touch
-                </GlassButton>
-                <GlassButton variant="outline" onClick={() => scrollToSection('projects')}>
-                  View Projects
-                </GlassButton>
+                </MagneticButton>
+                <a 
+                  href={RESUME_PATH}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="inline-block"
+                >
+                  <MagneticButton 
+                    variant="secondary"
+                    size="lg"
+                  >
+                    <Download size={18} />
+                    Download Resume
+                  </MagneticButton>
+                </a>
               </div>
             </ScrollReveal>
 
@@ -110,17 +131,7 @@ const Dashboard = () => {
             <ScrollReveal animation="fade-up" delay={500}>
               <div className="flex items-center gap-4 pt-6">
                 <span className="text-gray-500 text-sm">Connect with me:</span>
-                <div className="flex gap-3">
-                  {socialLinks.map((social, index) => (
-                    <IconButton 
-                      key={index}
-                      icon={social.icon}
-                      href={social.href}
-                      label={social.label}
-                      className="hover:scale-110 hover:-translate-y-1"
-                    />
-                  ))}
-                </div>
+                <SocialLinks size="md" itemClassName="icon-hover" />
               </div>
             </ScrollReveal>
           </div>
@@ -128,49 +139,55 @@ const Dashboard = () => {
           {/* Right side - Profile card with 3D tilt */}
           <ScrollReveal animation="fade-left" delay={300}>
             <div className="flex justify-center lg:justify-end">
-              <TiltCard 
-                tiltOptions={{ maxTilt: 8, scale: 1.02, glareMaxOpacity: 0.15 }}
-                className="max-w-sm w-full"
+              <Spotlight 
+                spotlightColor="rgba(139, 92, 246, 0.2)"
+                spotlightSize={500}
+                className="rounded-2xl"
               >
-                <GlassContainer glow padding="lg" elevation="high" className="w-full">
-                  {/* Profile image placeholder */}
-                  <div className="relative mx-auto mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-xl opacity-30 animate-pulse-slow" />
-                    <Avatar initials="MCK" size="xl" rounded className="relative" />
-                  </div>
+                <TiltCard 
+                  tiltOptions={{ maxTilt: 8, scale: 1.02, glareMaxOpacity: 0.15 }}
+                  className="max-w-sm w-full"
+                >
+                  <GlassContainer glow padding="lg" elevation="high" className="w-full">
+                    {/* Profile image placeholder */}
+                    <div className="relative mx-auto mb-6">
+                      <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full blur-xl opacity-30 animate-pulse-slow" />
+                      <Avatar initials={PROFILE.initials} size="xl" rounded className="relative" />
+                    </div>
 
-                  {/* Quick stats */}
-                  <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-white">Quick Overview</h3>
-                  </div>
+                    {/* Quick stats */}
+                    <div className="text-center mb-6">
+                      <h3 className="text-xl font-semibold text-white">Quick Overview</h3>
+                    </div>
 
-                  <div className="space-y-4">
-                    {quickStats.map((stat, index) => (
-                      <StatCard 
-                        key={index} 
-                        label={stat.label} 
-                        value={stat.value}
-                        className="hover:bg-white/10 transition-colors"
-                      />
-                    ))}
-                  </div>
-
-                  {/* Achievement badges */}
-                  <div className="mt-6 pt-6 border-t border-white/10">
-                    <p className="text-sm text-gray-400 mb-3">Achievements</p>
-                    <div className="flex flex-wrap gap-2">
-                      {achievements.map((achievement, index) => (
-                        <SkillChip 
+                    <div className="space-y-4">
+                      {quickStats.map((stat, index) => (
+                        <StatCard 
                           key={index} 
-                          label={achievement} 
-                          variant="achievement"
-                          className="hover:scale-105 transition-transform"
+                          label={stat.label} 
+                          value={stat.value}
+                          className="hover:bg-white/10 transition-colors"
                         />
                       ))}
                     </div>
-                  </div>
-                </GlassContainer>
-              </TiltCard>
+
+                    {/* Achievement badges */}
+                    <div className="mt-6 pt-6 border-t border-white/10">
+                      <p className="text-sm text-gray-400 mb-3">Achievements</p>
+                      <div className="flex flex-wrap gap-2">
+                        {ACHIEVEMENTS.slice(0, 3).map((achievement, index) => (
+                          <SkillChip 
+                            key={index} 
+                            label={achievement.short} 
+                            variant="achievement"
+                            className="hover-scale text-xs"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </GlassContainer>
+                </TiltCard>
+              </Spotlight>
             </div>
           </ScrollReveal>
         </div>
@@ -181,7 +198,7 @@ const Dashboard = () => {
             onClick={() => scrollToSection('about')}
             className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors group"
           >
-            <span className="text-sm group-hover:text-blue-400 transition-colors">Scroll Down</span>
+            <span className="text-sm group-hover:text-amber-400 transition-colors">Scroll Down</span>
             <ChevronDown size={24} className="group-hover:translate-y-1 transition-transform" />
           </button>
         </div>

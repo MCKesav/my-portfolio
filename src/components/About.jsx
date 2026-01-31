@@ -1,4 +1,4 @@
-import { User, Code, Lightbulb, Target } from 'lucide-react';
+import { User, Code, Lightbulb, Target, GraduationCap, Rocket } from 'lucide-react';
 import { 
   SectionWrapper, 
   SectionHeader, 
@@ -10,6 +10,7 @@ import {
 } from './ui';
 import { ScrollReveal } from '../hooks/useScrollAnimation';
 import { TiltCard } from '../hooks/useTiltEffect';
+import { PROFILE, EDUCATION, ACHIEVEMENTS } from '../data/constants';
 
 /**
  * About Component
@@ -20,39 +21,40 @@ const About = () => {
   const highlights = [
     {
       icon: <Code className="w-6 h-6" />,
-      title: 'Software Development',
-      description: 'Building scalable applications with modern tech stacks and best practices.',
+      title: 'Backend & Distributed Systems',
+      description: 'Experience with Apache Kafka, Spring Boot, microservices, and production-grade engineering at JPMorgan Chase.',
     },
     {
       icon: <Lightbulb className="w-6 h-6" />,
       title: 'AI & Machine Learning',
-      description: 'Developing intelligent systems and ML models for real-world applications.',
+      description: 'Specialized in NLP, LLMs, Transformers, and AI system design with focus on hallucination reduction and reliability.',
     },
     {
       icon: <Target className="w-6 h-6" />,
-      title: 'Problem Solving',
-      description: 'Tackling complex challenges with innovative and efficient solutions.',
+      title: 'Product & MVP Development',
+      description: 'Strong product mindset with experience taking ideas from prototype to scalable MVP, proven by hackathon wins.',
     },
     {
-      icon: <User className="w-6 h-6" />,
-      title: 'Team Collaboration',
-      description: 'Working effectively in teams to deliver impactful projects.',
+      icon: <Rocket className="w-6 h-6" />,
+      title: 'Health-Tech & Edu-Tech AI',
+      description: 'Building impactful AI systems in maternal health and education domains for real-world impact.',
     },
   ];
 
   const interests = [
     'Artificial Intelligence',
     'Machine Learning',
-    'Full Stack Development',
-    'Cloud Computing',
+    'NLP & LLMs',
+    'Distributed Systems',
+    'Backend Engineering',
+    'Health-Tech AI',
+    'Edu-Tech AI',
     'Open Source',
-    'Problem Solving',
-    'Innovation',
-    'Continuous Learning',
+    'Startup Development',
   ];
 
   return (
-    <SectionWrapper id="about" backgroundImage="bg1" overlayOpacity="medium" theme="purple">
+    <SectionWrapper id="about" backgroundImage="bg1" overlayOpacity="medium" theme="warm">
       <ScrollReveal animation="fade-up">
         <SectionHeader title="About" highlight="Me" />
       </ScrollReveal>
@@ -65,40 +67,48 @@ const About = () => {
               {/* Avatar/Image placeholder */}
               <div className="flex items-center gap-6 mb-8">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full blur-lg opacity-30 animate-pulse-slow" />
-                  <Avatar initials="MCK" size="lg" className="relative" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full blur-lg opacity-30 animate-pulse-slow" />
+                  <Avatar initials={PROFILE.initials} size="lg" className="relative" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white">Movva Chenna Kesav</h3>
-                  <p className="text-purple-400">AI Engineer & Software Engineer</p>
+                  <h3 className="text-2xl font-bold text-white">{PROFILE.name}</h3>
+                  <p className="text-amber-400">{PROFILE.title}</p>
                 </div>
               </div>
 
               {/* Bio text */}
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
-                  I am a passionate AI Engineer and Software Engineer with a strong foundation in 
-                  building intelligent systems and scalable applications. My journey in tech has been 
-                  driven by curiosity and a desire to create solutions that make a meaningful impact.
+                  {PROFILE.bio}
                 </p>
                 <p>
-                  As a Software Engineer Intern at JPMorgan Chase & Co., I gained valuable experience 
-                  working on enterprise-level applications and collaborating with cross-functional teams. 
-                  This experience has shaped my approach to software development, emphasizing clean code, 
-                  scalability, and user-centric design.
+                  As an SDE Intern at <span className="text-amber-400 font-medium">JPMorgan Chase & Co.</span>, I integrated 
+                  Apache Kafka for distributed systems, worked with Spring Boot and CI/CD pipelines, and gained hands-on 
+                  exposure to large-scale backend systems and microservices architecture.
                 </p>
                 <p>
-                  I have a particular interest in AI and Machine Learning, having participated in the 
-                  Amazon ML Summer School and won the GitHub Hackathon. I enjoy exploring the intersection 
-                  of AI and practical applications, creating tools that enhance productivity and solve 
-                  real-world problems.
+                  I'm a <span className="text-amber-400 font-medium">Google TechSprint Winner</span> (1st place among 300+ teams) 
+                  and <span className="text-amber-400 font-medium">GitHub Hackathon Winner</span>, demonstrating my ability to 
+                  build innovative AI solutions. Selected for <span className="text-amber-400 font-medium">Amazon ML Summer School</span> from 
+                  ~200,000 applicants, I focus on designing AI systems with reliability, explainability, and real-world impact.
                 </p>
               </div>
 
+              {/* Education */}
+              <div className="pt-4 border-t border-white/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <GraduationCap className="w-5 h-5 text-amber-400" />
+                  <span className="text-white font-semibold">Education</span>
+                </div>
+                <p className="text-gray-400 text-sm">{EDUCATION.degree}</p>
+                <p className="text-amber-400 text-sm">Specialization: {EDUCATION.specialization}</p>
+                <p className="text-gray-400 text-sm">{EDUCATION.institution} | {EDUCATION.duration}</p>
+              </div>
+
               {/* Quick facts */}
-              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/10">
-                <QuickStat value="4+" label="Major Projects" gradient />
-                <QuickStat value="2" label="Awards Won" gradient />
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                <QuickStat value="5+" label="Major Projects" gradient />
+                <QuickStat value="3" label="Hackathon Wins" gradient />
               </div>
             </GlassContainer>
           </TiltCard>
@@ -113,7 +123,7 @@ const About = () => {
                   <IconBox 
                     icon={item.icon} 
                     size="lg" 
-                    color="purple" 
+                    color="gold" 
                     className="mb-4 group-hover:scale-110 transition-transform duration-300"
                   />
                   <h4 className="text-lg font-semibold text-white mb-2">{item.title}</h4>

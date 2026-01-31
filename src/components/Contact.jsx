@@ -1,24 +1,22 @@
+import { createElement } from 'react';
 import { useState } from 'react';
 import { 
-  Mail, 
-  Phone, 
-  MapPin, 
   Send, 
-  Github, 
-  Linkedin, 
-  Twitter,
   Loader2
 } from 'lucide-react';
 import { 
   SectionWrapper, 
   SectionHeader, 
   GlassContainer, 
-  GlassButton,
-  IconButton,
   FormInput,
   ContactInfoItem,
-  SuccessState
+  SuccessState,
+  SocialLinks
 } from './ui';
+import { ScrollReveal } from '../hooks/useScrollAnimation';
+import { TiltCard } from '../hooks/useTiltEffect';
+import { GradientText } from './ui/AnimatedText';
+import { CONTACT_INFO } from '../data/constants';
 
 /**
  * Contact Component
@@ -71,18 +69,6 @@ const Contact = () => {
     }, 5000);
   };
 
-  const contactInfo = [
-    { icon: <Mail className="w-5 h-5" />, label: 'Email', value: 'contact@movvakesav.com' },
-    { icon: <Phone className="w-5 h-5" />, label: 'Phone', value: '+91 XXXXX XXXXX' },
-    { icon: <MapPin className="w-5 h-5" />, label: 'Location', value: 'India' },
-  ];
-
-  const socialLinks = [
-    { icon: <Github className="w-5 h-5" />, label: 'GitHub', href: 'https://github.com' },
-    { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn', href: 'https://linkedin.com' },
-    { icon: <Twitter className="w-5 h-5" />, label: 'Twitter', href: 'https://twitter.com' },
-  ];
-
   // Success state UI
   if (formState === 'success') {
     return <SuccessState />;
@@ -90,66 +76,77 @@ const Contact = () => {
 
   return (
     <SectionWrapper id="contact" theme="purple">
-      <SectionHeader 
-        title="Get In"
-        highlight="Touch"
-        subtitle="Have a project in mind or want to collaborate? I'd love to hear from you!"
-      />
+      <ScrollReveal animation="fade-up">
+        <SectionHeader 
+          title="Get In"
+          highlight="Touch"
+          subtitle="Have a project in mind or want to collaborate? I'd love to hear from you!"
+        />
+      </ScrollReveal>
 
       <div className="grid lg:grid-cols-5 gap-8">
         {/* Contact info sidebar */}
         <div className="lg:col-span-2 space-y-6">
           {/* Info card */}
-          <GlassContainer>
-            <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
-            
-            <div className="space-y-4">
-              {contactInfo.map((item, index) => (
-                <ContactInfoItem 
-                  key={index}
-                  icon={item.icon}
-                  label={item.label}
-                  value={item.value}
-                />
-              ))}
-            </div>
-          </GlassContainer>
+          <ScrollReveal animation="fade-right" delay={100}>
+            <TiltCard tiltAmount={8} glareOpacity={0.1}>
+              <GlassContainer className="hover:border-amber-500/30 transition-all duration-300">
+                <h3 className="text-xl font-bold text-white mb-6">
+                  <GradientText>Contact Information</GradientText>
+                </h3>
+                
+                <div className="space-y-4">
+                  {CONTACT_INFO.map((item, index) => (
+                    <ContactInfoItem 
+                      key={index}
+                      icon={createElement(item.Icon, { className: 'w-5 h-5' })}
+                      label={item.label}
+                      value={item.value}
+                      className="hover:translate-x-2 transition-transform duration-300"
+                    />
+                  ))}
+                </div>
+              </GlassContainer>
+            </TiltCard>
+          </ScrollReveal>
 
           {/* Social links card */}
-          <GlassContainer>
-            <h3 className="text-xl font-bold text-white mb-6">Connect With Me</h3>
-            
-            <div className="flex gap-4">
-              {socialLinks.map((social, index) => (
-                <IconButton 
-                  key={index}
-                  icon={social.icon}
-                  href={social.href}
-                  label={social.label}
-                  size="lg"
-                />
-              ))}
-            </div>
-          </GlassContainer>
+          <ScrollReveal animation="fade-right" delay={200}>
+            <TiltCard tiltAmount={8} glareOpacity={0.1}>
+              <GlassContainer className="hover:border-amber-500/30 transition-all duration-300">
+                <h3 className="text-xl font-bold text-white mb-6">
+                  <GradientText>Connect With Me</GradientText>
+                </h3>
+                
+                <SocialLinks size="lg" itemClassName="icon-hover" exclude={['email']} />
+              </GlassContainer>
+            </TiltCard>
+          </ScrollReveal>
 
           {/* Quick note */}
-          <GlassContainer>
-            <p className="text-gray-400 text-sm">
-              <span className="text-white font-medium">Response time:</span> I typically respond 
-              within 24-48 hours. For urgent matters, feel free to reach out via LinkedIn.
-            </p>
-          </GlassContainer>
+          <ScrollReveal animation="fade-right" delay={300}>
+            <GlassContainer className="hover:border-teal-500/30 transition-all duration-300">
+              <p className="text-gray-400 text-sm">
+                <span className="text-white font-medium">⚡ Response time:</span> I typically respond 
+                within 24-48 hours. For urgent matters, feel free to reach out via LinkedIn.
+              </p>
+            </GlassContainer>
+          </ScrollReveal>
         </div>
 
         {/* Contact form */}
         <div className="lg:col-span-3">
-          <form 
-            onSubmit={handleSubmit}
-            className={`glass-card p-8 transition-all duration-300 ${
-              formState === 'focused' ? 'ring-2 ring-blue-500/50 glow-effect' : ''
-            }`}
-          >
-            <h3 className="text-xl font-bold text-white mb-6">Send a Message</h3>
+          <ScrollReveal animation="fade-left" delay={200}>
+            <TiltCard tiltAmount={5} glareOpacity={0.08}>
+              <form 
+                onSubmit={handleSubmit}
+                className={`glass-card p-8 transition-all duration-500 ${
+                  formState === 'focused' ? 'ring-2 ring-amber-500/50 glow-effect scale-[1.01]' : ''
+                }`}
+              >
+                <h3 className="text-xl font-bold text-white mb-6">
+                  <GradientText>Send a Message</GradientText>
+                </h3>
             
             <div className="space-y-6">
               {/* Name and Email row */}
@@ -164,7 +161,7 @@ const Contact = () => {
                   onFocus={() => handleFocus('name')}
                   onBlur={handleBlur}
                   required
-                  className={focusedField === 'name' ? 'ring-2 ring-blue-500/50' : ''}
+                  className={focusedField === 'name' ? 'ring-2 ring-amber-500/50' : ''}
                 />
                 <FormInput
                   type="email"
@@ -176,7 +173,7 @@ const Contact = () => {
                   onFocus={() => handleFocus('email')}
                   onBlur={handleBlur}
                   required
-                  className={focusedField === 'email' ? 'ring-2 ring-blue-500/50' : ''}
+                  className={focusedField === 'email' ? 'ring-2 ring-amber-500/50' : ''}
                 />
               </div>
 
@@ -191,7 +188,7 @@ const Contact = () => {
                 onFocus={() => handleFocus('subject')}
                 onBlur={handleBlur}
                 required
-                className={focusedField === 'subject' ? 'ring-2 ring-blue-500/50' : ''}
+                className={focusedField === 'subject' ? 'ring-2 ring-amber-500/50' : ''}
               />
 
               {/* Message */}
@@ -206,17 +203,17 @@ const Contact = () => {
                 onBlur={handleBlur}
                 required
                 rows={5}
-                className={`resize-none ${focusedField === 'message' ? 'ring-2 ring-blue-500/50' : ''}`}
+                className={`resize-none ${focusedField === 'message' ? 'ring-2 ring-amber-500/50' : ''}`}
               />
 
               {/* Submit button */}
               <button
                 type="submit"
                 disabled={formState === 'submitting'}
-                className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
+                className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 group ${
                   formState === 'submitting'
-                    ? 'bg-blue-500/50 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 hover:shadow-lg hover:shadow-blue-500/25'
+                    ? 'bg-amber-500/50 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-amber-500 to-yellow-500 hover:opacity-90 hover:shadow-lg hover:shadow-amber-500/25 hover:scale-[1.02]'
                 }`}
               >
                 {formState === 'submitting' ? (
@@ -226,13 +223,15 @@ const Contact = () => {
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
+                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     Send Message
                   </>
                 )}
               </button>
             </div>
           </form>
+            </TiltCard>
+          </ScrollReveal>
         </div>
       </div>
     </SectionWrapper>

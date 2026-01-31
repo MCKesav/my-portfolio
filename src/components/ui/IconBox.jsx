@@ -22,11 +22,13 @@ const IconBox = ({
   };
 
   const colorClasses = {
-    blue: 'from-blue-500/20 to-purple-500/20 text-blue-400',
-    purple: 'from-purple-500/20 to-pink-500/20 text-purple-400',
-    yellow: 'from-yellow-500/20 to-orange-500/20 text-yellow-400',
-    green: 'from-green-500/20 to-emerald-500/20 text-green-400',
-    cyan: 'from-cyan-500/20 to-blue-500/20 text-cyan-400',
+    blue: 'from-teal-500/20 to-emerald-500/20 text-teal-400',
+    purple: 'from-amber-500/20 to-yellow-500/20 text-amber-400',
+    yellow: 'from-yellow-500/20 to-amber-500/20 text-yellow-400',
+    green: 'from-emerald-500/20 to-teal-500/20 text-emerald-400',
+    cyan: 'from-teal-500/20 to-cyan-500/20 text-teal-400',
+    gold: 'from-amber-500/20 to-yellow-400/20 text-amber-400',
+    rose: 'from-rose-500/20 to-pink-500/20 text-rose-400',
   };
 
   return (

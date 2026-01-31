@@ -27,7 +27,7 @@ const SectionHeader = ({
           </>
         )}
       </h2>
-      <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
+      <div className="w-24 h-1 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 mx-auto rounded-full" />
       {subtitle && (
         <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
           {subtitle}

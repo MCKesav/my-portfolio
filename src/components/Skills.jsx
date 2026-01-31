@@ -6,9 +6,14 @@ import {
   FilterButton,
   SkillBar,
   SkillChip,
-  QuickStat
+  QuickStat,
+  AnimatedCounter,
+  GlowingBorder,
+  HoverReveal
 } from './ui';
 import { ScrollReveal } from '../hooks/useScrollAnimation';
+import { GradientText } from './ui/AnimatedText';
+import { SKILLS } from '../data/constants';
 
 /**
  * Skills Component
@@ -21,70 +26,42 @@ const Skills = () => {
   const skillCategories = [
     { id: 'all', name: 'All Skills' },
     { id: 'languages', name: 'Languages' },
-    { id: 'frameworks', name: 'Frameworks' },
-    { id: 'tools', name: 'Tools & Platforms' },
-    { id: 'ai', name: 'AI & ML' },
+    { id: 'aiml', name: 'AI & ML' },
+    { id: 'backend', name: 'Backend & Systems' },
+    { id: 'cloudDevops', name: 'Cloud & DevOps' },
+    { id: 'databases', name: 'Databases' },
   ];
 
-  const skills = [
-    // Programming Languages
-    { name: 'Python', level: 90, category: 'languages', color: 'blue' },
-    { name: 'JavaScript', level: 85, category: 'languages', color: 'yellow' },
-    { name: 'Java', level: 80, category: 'languages', color: 'purple' },
-    { name: 'TypeScript', level: 75, category: 'languages', color: 'blue' },
-    { name: 'SQL', level: 80, category: 'languages', color: 'cyan' },
-    { name: 'C++', level: 70, category: 'languages', color: 'purple' },
+  // Map skills from constants with category and color
+  const colorMap = {
+    languages: 'gold',
+    aiml: 'pink',
+    backend: 'teal',
+    cloudDevops: 'cyan',
+    databases: 'green',
+    data: 'amber',
+  };
 
-    // Frameworks & Libraries
-    { name: 'React', level: 85, category: 'frameworks', color: 'cyan' },
-    { name: 'Node.js', level: 80, category: 'frameworks', color: 'green' },
-    { name: 'FastAPI', level: 75, category: 'frameworks', color: 'cyan' },
-    { name: 'Django', level: 70, category: 'frameworks', color: 'green' },
-    { name: 'TailwindCSS', level: 85, category: 'frameworks', color: 'blue' },
-    { name: 'Express.js', level: 75, category: 'frameworks', color: 'purple' },
-
-    // Tools & Platforms
-    { name: 'Git & GitHub', level: 90, category: 'tools', color: 'red' },
-    { name: 'Docker', level: 75, category: 'tools', color: 'blue' },
-    { name: 'AWS', level: 70, category: 'tools', color: 'orange' },
-    { name: 'Linux', level: 80, category: 'tools', color: 'yellow' },
-    { name: 'VS Code', level: 90, category: 'tools', color: 'blue' },
-    { name: 'MongoDB', level: 75, category: 'tools', color: 'green' },
-
-    // AI & ML
-    { name: 'Machine Learning', level: 85, category: 'ai', color: 'purple' },
-    { name: 'Deep Learning', level: 75, category: 'ai', color: 'pink' },
-    { name: 'NLP', level: 80, category: 'ai', color: 'pink' },
-    { name: 'TensorFlow', level: 70, category: 'ai', color: 'orange' },
-    { name: 'PyTorch', level: 70, category: 'ai', color: 'red' },
-    { name: 'OpenAI API', level: 80, category: 'ai', color: 'green' },
-  ];
-
-  const otherSkills = [
-    'RESTful APIs',
-    'GraphQL',
-    'Agile/Scrum',
-    'CI/CD',
-    'System Design',
-    'Data Structures',
-    'Algorithms',
-    'Web Scraping',
-    'Browser Extensions',
-    'Automation',
-    'Problem Solving',
-    'Technical Writing',
+  // Build skills array from SKILLS constant
+  const allSkills = [
+    ...SKILLS.languages.map(s => ({ ...s, category: 'languages', color: 'gold' })),
+    ...SKILLS.aiml.map(s => ({ ...s, category: 'aiml', color: 'pink' })),
+    ...SKILLS.backend.map(s => ({ ...s, category: 'backend', color: 'teal' })),
+    ...SKILLS.cloudDevops.map(s => ({ ...s, category: 'cloudDevops', color: 'cyan' })),
+    ...SKILLS.databases.map(s => ({ ...s, category: 'databases', color: 'green' })),
+    ...SKILLS.data.map(s => ({ ...s, category: 'data', color: 'amber' })),
   ];
 
   const stats = [
-    { value: '6+', label: 'Languages' },
-    { value: '10+', label: 'Technologies' },
-    { value: '4+', label: 'Projects' },
-    { value: '2+', label: 'Years Learning' },
+    { value: 7, label: 'Languages', suffix: '+' },
+    { value: 20, label: 'Technologies', suffix: '+' },
+    { value: 5, label: 'Projects', suffix: '+' },
+    { value: 3, label: 'Hackathon Wins', suffix: '' },
   ];
 
   const filteredSkills = activeCategory === 'all' 
-    ? skills 
-    : skills.filter(skill => skill.category === activeCategory);
+    ? allSkills.slice(0, 18) // Show top 18 for "all" view
+    : allSkills.filter(skill => skill.category === activeCategory);
 
   return (
     <SectionWrapper id="skills" backgroundImage="bg1" overlayOpacity="medium" theme="cyan">
@@ -115,42 +92,73 @@ const Skills = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredSkills.map((skill, index) => (
           <ScrollReveal key={`${skill.name}-${activeCategory}`} animation="fade-up" delay={100 + index * 50}>
-            <SkillBar
-              name={skill.name}
-              level={skill.level}
-              category={skill.category}
-              color={skill.color}
-              animationDelay={index * 50}
-              className="hover:scale-[1.02] transition-transform duration-300"
-            />
+            <HoverReveal
+              revealContent={
+                <div className="text-center p-4">
+                  <div className="text-4xl font-bold text-white mb-2">{skill.level}%</div>
+                  <div className="text-gray-300">Proficiency Level</div>
+                </div>
+              }
+              revealPosition="center"
+              hoverScale={1.03}
+              className="rounded-xl"
+            >
+              <SkillBar
+                name={skill.name}
+                level={skill.level}
+                category={skill.category}
+                color={skill.color}
+                animationDelay={index * 50}
+                className="hover:scale-[1.02] transition-transform duration-300"
+              />
+            </HoverReveal>
           </ScrollReveal>
         ))}
       </div>
 
       {/* Additional skills section */}
       <ScrollReveal animation="fade-up" delay={400}>
-        <GlassContainer padding="lg" className="mt-16">
-          <h3 className="text-xl font-bold text-white mb-6 text-center">
-            Other Skills & Interests
-          </h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {otherSkills.map((skill, index) => (
-              <SkillChip 
-                key={index} 
-                label={skill} 
-                variant="default"
-                className="hover:scale-110 hover:-translate-y-1 transition-all duration-300"
-              />
-            ))}
+        <GlowingBorder 
+          colors={['#d4af37', '#f59e0b', '#be3144', '#14b8a6', '#d4af37']}
+          borderRadius={24}
+          glowIntensity={0.3}
+          className="mt-16"
+        >
+          <div className="p-8">
+            <h3 className="text-xl font-bold text-white mb-6 text-center">
+              <GradientText>Other Skills & Expertise</GradientText>
+            </h3>
+            <div className="flex flex-wrap justify-center gap-3">
+              {SKILLS.other.map((skill, index) => (
+                <SkillChip 
+                  key={index} 
+                  label={skill} 
+                  variant="default"
+                  className="hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+                />
+              ))}
+            </div>
           </div>
-        </GlassContainer>
+        </GlowingBorder>
       </ScrollReveal>
 
-      {/* Stats section */}
+      {/* Stats section with animated counters */}
       <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
           <ScrollReveal key={index} animation="scale" delay={500 + index * 100}>
-            <QuickStat value={stat.value} label={stat.label} centered gradient />
+            <GlassContainer padding="lg" className="text-center group hover:bg-white/10 transition-all duration-300">
+              <div className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
+                <AnimatedCounter 
+                  end={stat.value} 
+                  duration={2000} 
+                  delay={index * 200}
+                  suffix={stat.suffix}
+                />
+              </div>
+              <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">
+                {stat.label}
+              </div>
+            </GlassContainer>
           </ScrollReveal>
         ))}
       </div>

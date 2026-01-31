@@ -44,7 +44,7 @@ const SectionWrapper = ({
       };
 
   // Theme class for adaptive reflections
-  const themeClass = theme ? `theme-${theme}` : 'theme-blue';
+  const themeClass = theme ? `theme-${theme}` : 'theme-warm';
 
   return (
     <section 
@@ -62,6 +62,12 @@ const SectionWrapper = ({
       <div 
         className="absolute inset-0"
         style={{ background: `var(--overlay-${overlayOpacity})` }}
+      />
+      
+      {/* Additional color neutralizer overlay */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40"
+        style={{ mixBlendMode: 'color' }}
       />
       
       {/* Content */}

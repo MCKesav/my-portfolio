@@ -9,7 +9,7 @@ import ExperiencePage from './pages/ExperiencePage';
 import SkillsPage from './pages/SkillsPage';
 import ResumePage from './pages/ResumePage';
 import ContactPage from './pages/ContactPage';
-import { LiquidGlassFilter, CursorGlow } from './components/ui';
+import { LiquidGlassFilter, CursorGlow, ScrollProgress, FloatingNav, EnhancedParticles } from './components/ui';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -56,10 +56,34 @@ function App() {
       
       {/* Cursor Glow Effect - Follows mouse */}
       <CursorGlow 
-        size={500} 
-        color="rgba(139, 92, 246, 0.08)" 
-        blur={100}
+        size={400} 
+        color="rgba(212, 175, 55, 0.06)" 
+        blur={120}
       />
+
+      {/* Enhanced Global Particles - Stars, Orbs & Dust */}
+      <EnhancedParticles 
+        starCount={80}
+        orbCount={15}
+        dustCount={40}
+        starColors={['#fffef0', '#fef3c7', '#fde68a', '#d4af37', '#f5f5dc']}
+        orbColors={['#d4af37', '#be3144', '#008080', '#ffbf00', '#663399', '#50c878']}
+        enableConnections={true}
+        enableMouseInteraction={true}
+        connectionDistance={150}
+        mouseRadius={200}
+        glowIntensity={1.5}
+      />
+
+      {/* Scroll Progress Indicator */}
+      <ScrollProgress 
+        colors={['#d4af37', '#be3144', '#008080']}
+        height={3}
+        showPercentage={false}
+      />
+
+      {/* Floating Navigation Dock */}
+      <FloatingNav showAfterScroll={400} />
       
       <div className="min-h-screen">
         {/* Loading Screen */}
