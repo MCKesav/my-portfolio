@@ -1,6 +1,9 @@
 // UI Components - Central export file
 // Import and re-export all reusable UI components
 
+// Theme Toggle
+export { default as ThemeToggle, ThemeSelector } from './ThemeToggle';
+
 // Liquid Glass Design System (Apple-inspired)
 export { 
   default as LiquidGlass,

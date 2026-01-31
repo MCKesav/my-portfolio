@@ -27,22 +27,6 @@ const SectionWrapper = ({
   centered = false,
   useGlobalBackground = true,
 }) => {
-  // Use global background variable or specific image
-  const bgStyle = useGlobalBackground || backgroundImage === 'default'
-    ? {
-        backgroundImage: 'var(--app-background-image)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-        backgroundColor: 'var(--app-background-color)',
-      }
-    : {
-        backgroundImage: `url("/ui images/${backgroundImage}.png")`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-      };
-
   // Theme class for adaptive reflections
   const themeClass = theme ? `theme-${theme}` : 'theme-warm';
 
@@ -56,18 +40,26 @@ const SectionWrapper = ({
         ${themeClass}
         ${className}
       `}
-      style={bgStyle}
+      style={{
+        backgroundColor: 'var(--bg-primary)',
+        background: 'var(--app-background-gradient)',
+      }}
     >
-      {/* Gradient Overlay - uses CSS variables */}
+      {/* Background image layer - only for dark themes with images */}
       <div 
-        className="absolute inset-0"
-        style={{ background: `var(--overlay-${overlayOpacity})` }}
+        className="absolute inset-0 transition-opacity duration-500"
+        style={{
+          backgroundImage: 'var(--app-background-image)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
       />
       
-      {/* Additional color neutralizer overlay */}
+      {/* Gradient Overlay - uses CSS variables */}
       <div 
-        className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40"
-        style={{ mixBlendMode: 'color' }}
+        className="absolute inset-0 transition-all duration-500"
+        style={{ background: `var(--overlay-${overlayOpacity})` }}
       />
       
       {/* Content */}

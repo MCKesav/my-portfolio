@@ -16,16 +16,54 @@
    - Background remains sharp
    ===================================================== */
 
+/* =====================================================
+   THEME SYSTEM - CSS Custom Properties
+   ===================================================== */
+
 :root {
   /* =====================================================
+     DEFAULT THEME: DARK (Midnight)
+     Elegant dark theme with gold accents
+     ===================================================== */
+  
+  /* Core Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1510;
+  --bg-tertiary: #15100a;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-muted: #9ca3af;
+  --text-subtle: #6b7280;
+  
+  /* Accent Colors */
+  --primary-accent: #d4af37;
+  --primary-accent-rgb: 212, 175, 55;
+  --secondary-accent: #ffbf00;
+  --secondary-accent-rgb: 255, 191, 0;
+  --tertiary-accent: #be3144;
+  
+  /* Glass Properties */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.20);
+  
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-glow: rgba(212, 175, 55, 0.15);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #d4af37 0%, #ffbf00 50%, #fde68a 100%);
+  --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1510 25%, #0d0d0a 50%, #15100a 75%, #0a0a0a 100%);
+  
+  /* =====================================================
      GLOBAL BACKGROUND - Single Source of Truth
-     Change this once to update all pages
      ===================================================== */
   --app-background-image: url('/ui images/bg1.png');
-  --app-background-color: #0a0a0a;
-  --app-background-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1510 25%, #0d0d0a 50%, #15100a 75%, #0a0a0a 100%);
+  --app-background-color: var(--bg-primary);
+  --app-background-gradient: var(--gradient-bg);
   
-  /* Overlay Gradients - Warmer tones */
+  /* Overlay Gradients */
   --overlay-light: linear-gradient(to bottom, rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.4));
   --overlay-medium: linear-gradient(to bottom, rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.6));
   --overlay-dark: linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8));
@@ -212,6 +250,108 @@
 }
 
 /* =====================================================
+   🍊 WARM & ENERGETIC THEME
+   Dark background with warm orange accents
+   ===================================================== */
+.theme-warm {
+  /* Core Colors - Dark base with warm accents */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1008;
+  --bg-tertiary: #15100a;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-muted: #9ca3af;
+  --text-subtle: #7A7A7A;
+  
+  /* Accent Colors - Warm Orange */
+  --primary-accent: #E1783C;
+  --primary-accent-rgb: 225, 120, 60;
+  --secondary-accent: #E2A15F;
+  --secondary-accent-rgb: 226, 161, 95;
+  --tertiary-accent: #C85A2D;
+  
+  /* Glass Properties */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.20);
+  
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-glow: rgba(225, 120, 60, 0.2);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #E1783C 0%, #E2A15F 50%, #F0B775 100%);
+  --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1008 25%, #0d0d0a 50%, #15100a 75%, #0a0a0a 100%);
+  
+  /* Background */
+  --app-background-color: var(--bg-primary);
+  --app-background-gradient: var(--gradient-bg);
+  --app-background-image: url('/ui images/bg1.png');
+  
+  /* Overlays */
+  --overlay-light: linear-gradient(to bottom, rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.4));
+  --overlay-medium: linear-gradient(to bottom, rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.6));
+  --overlay-dark: linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8));
+  
+  /* Legacy color overrides */
+  --accent-gold: 225, 120, 60;
+  --accent-amber: 226, 161, 95;
+  --accent-rose: 200, 90, 45;
+}
+
+/* =====================================================
+   🌊 OCEAN BREEZE THEME
+   Cool and professional
+   ===================================================== */
+.theme-ocean {
+  /* Core Colors */
+  --bg-primary: #0B1622;
+  --bg-secondary: #0F1D2E;
+  --bg-tertiary: #132436;
+  --text-primary: #F0F6FC;
+  --text-secondary: #C9D1D9;
+  --text-muted: #8B949E;
+  --text-subtle: #6E7681;
+  
+  /* Accent Colors */
+  --primary-accent: #58A6FF;
+  --primary-accent-rgb: 88, 166, 255;
+  --secondary-accent: #79C0FF;
+  --secondary-accent-rgb: 121, 192, 255;
+  --tertiary-accent: #1F6FEB;
+  
+  /* Glass Properties */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  
+  /* Shadows */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-glow: rgba(88, 166, 255, 0.2);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #58A6FF 0%, #79C0FF 50%, #A5D6FF 100%);
+  --gradient-bg: linear-gradient(135deg, #0B1622 0%, #0F1D2E 25%, #0B1622 50%, #132436 75%, #0B1622 100%);
+  
+  /* Background */
+  --app-background-color: var(--bg-primary);
+  --app-background-gradient: var(--gradient-bg);
+  --app-background-image: none;
+  
+  /* Overlays */
+  --overlay-light: linear-gradient(to bottom, rgba(11, 22, 34, 0.4), rgba(11, 22, 34, 0.3), rgba(11, 22, 34, 0.4));
+  --overlay-medium: linear-gradient(to bottom, rgba(11, 22, 34, 0.6), rgba(11, 22, 34, 0.5), rgba(11, 22, 34, 0.6));
+  --overlay-dark: linear-gradient(to bottom, rgba(11, 22, 34, 0.8), rgba(11, 22, 34, 0.7), rgba(11, 22, 34, 0.8));
+  
+  /* Legacy color overrides */
+  --accent-gold: 88, 166, 255;
+  --accent-amber: 121, 192, 255;
+  --accent-teal: 56, 139, 253;
+}
+
+/* =====================================================
    THEME VARIANTS
    Each theme adjusts accent colors for contextual glass
    ===================================================== */
@@ -261,6 +401,7 @@
 
 html {
   scroll-behavior: smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body {
@@ -268,11 +409,35 @@ body {
   background: var(--app-background-gradient);
   background-color: var(--app-background-color);
   min-height: 100vh;
-  color: #fff;
+  color: var(--text-primary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.01em;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Theme-aware text colors */
+.text-theme-primary { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-muted { color: var(--text-muted); }
+.text-theme-subtle { color: var(--text-subtle); }
+
+/* Theme-aware accent colors */
+.text-theme-accent { color: var(--primary-accent); }
+.bg-theme-accent { background-color: var(--primary-accent); }
+.border-theme-accent { border-color: var(--primary-accent); }
+
+/* Theme-aware glass background */
+.bg-theme-glass {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(20px);
+}
+
+.bg-theme-glass:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
 }
 
 /* Premium heading typography */
